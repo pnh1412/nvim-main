@@ -1,0 +1,31 @@
+{
+  "Async Function": {
+    "prefix": "afn",
+    "body": [
+      "export async function ${1:name}(${2}): Promise<${3:void}> {",
+      "  ${4}",
+      "}"
+    ],
+    "description": "Create an exported async function"
+  },
+  "Try Catch": {
+    "prefix": "tryc",
+    "body": [
+      "try {",
+      "  ${1}",
+      "} catch (error) {",
+      "  ${2:console.error(error);}",
+      "}"
+    ],
+    "description": "Create a try/catch block"
+  },
+  "Type Alias": {
+    "prefix": "type",
+    "body": [
+      "type ${1:Name} = {",
+      "  ${2:key}: ${3:string};",
+      "};"
+    ],
+    "description": "Create a TypeScript object type"
+  }
+}

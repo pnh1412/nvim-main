@@ -1,0 +1,8 @@
+require("core.globals")
+require("core.env")
+require("config.options")
+require("core.filetype")
+require("core.autocmds")
+require("core.commands")
+require("config.lazy")
+require("config.icons")

@@ -1,0 +1,29 @@
+{
+  "Async Function": {
+    "prefix": "afn",
+    "body": [
+      "async function ${1:name}(${2}) {",
+      "  ${3}",
+      "}"
+    ],
+    "description": "Create an async function"
+  },
+  "Try Catch": {
+    "prefix": "tryc",
+    "body": [
+      "try {",
+      "  ${1}",
+      "} catch (error) {",
+      "  ${2:console.error(error);}",
+      "}"
+    ],
+    "description": "Create a try/catch block"
+  },
+  "Module Export": {
+    "prefix": "mexp",
+    "body": [
+      "export { ${1:name} };"
+    ],
+    "description": "Create a named export"
+  }
+}

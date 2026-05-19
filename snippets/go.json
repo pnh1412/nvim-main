@@ -1,0 +1,29 @@
+{
+  "Test Function": {
+    "prefix": "test",
+    "body": [
+      "func Test${1:Name}(t *testing.T) {",
+      "\t${2}",
+      "}"
+    ],
+    "description": "Create a Go test function"
+  },
+  "HTTP Handler": {
+    "prefix": "handler",
+    "body": [
+      "func ${1:Handler}(w http.ResponseWriter, r *http.Request) {",
+      "\t${2}",
+      "}"
+    ],
+    "description": "Create a net/http handler"
+  },
+  "Error Check": {
+    "prefix": "iferr",
+    "body": [
+      "if err != nil {",
+      "\treturn ${1:err}",
+      "}"
+    ],
+    "description": "Create a Go error check"
+  }
+}

@@ -1,0 +1,262 @@
+Neovim plugin inventory
+Generated from lazy-lock.json
+Date: 2026-05-19
+Total plugins: 98
+
+Core / plugin manager
+- lazy.nvim
+
+Completion / snippets
+- blink.cmp
+- blink-cmp-avante
+- LuaSnip
+- friendly-snippets
+- tailwindcss-colorizer-cmp.nvim
+
+LSP / diagnostics / formatting / linting
+- nvim-lspconfig
+- mason.nvim
+- mason-lspconfig.nvim
+- mason-tool-installer.nvim
+- conform.nvim
+- nvim-lint
+- fidget.nvim
+- tiny-inline-diagnostic.nvim
+- lsp-lens.nvim
+- lspsaga.nvim
+- lazydev.nvim
+- luvit-meta
+
+Treesitter / syntax / code structure
+- nvim-treesitter
+- nvim-treesitter-context
+- nvim-treesitter-textobjects
+- tree-sitter-norg
+- tree-sitter-norg-meta
+- aerial.nvim
+- markview.nvim
+- helpview.nvim
+
+UI / UX / themes
+- catppuccin
+- gruvbox
+- gruvbox-material
+- kanagawa.nvim
+- rose-pine
+- tokyonight.nvim
+- everforest
+- everblush
+- neovim-ayu
+- solarized-osaka.nvim
+- vim-nightfly-guicolors
+- themeInitNvim
+- fkthemes.nvim
+- lualine.nvim
+- bufferline.nvim
+- alpha-nvim
+- noice.nvim
+- nvim-notify
+- dressing.nvim
+- which-key.nvim
+- nvim-web-devicons
+- nui.nvim
+- image.nvim
+- statuscol.nvim
+- indent-blankline.nvim
+- hlchunk.nvim
+- neoscroll.nvim
+- nvim-ufo
+- nvim-window-picker
+
+Navigation / files / search
+- telescope.nvim
+- telescope-fzf-native.nvim
+- telescope-undo.nvim
+- flash.nvim
+- neo-tree.nvim
+- oil.nvim
+- project.nvim
+- auto-session
+- quicker.nvim
+- nvim-bqf
+- todo-comments.nvim
+- trouble.nvim
+
+Git
+- gitsigns.nvim
+- lazygit.nvim
+- fugit2.nvim
+- diffview.nvim
+- git-blame.nvim
+- git-conflict.nvim
+- nvim-tinygit
+
+Terminal / tasks / runners
+- toggleterm.nvim
+- overseer.nvim
+- compiler.nvim
+- cmake-tools.nvim
+
+Debugging / testing
+- nvim-dap
+- nvim-dap-ui
+- nvim-dap-virtual-text
+- nvim-dap-go
+- mason-nvim-dap.nvim
+- neotest
+- neotest-golang
+- neotest-python
+- neotest-ctest
+
+Language specific
+- typescript-tools.nvim
+- clangd_extensions.nvim
+- rustaceanvim
+- crates.nvim
+- flutter-tools.nvim
+- nvim-java
+- nvim-java-core
+- nvim-java-dap
+- nvim-java-test
+- spring-boot.nvim
+- venv-selector.nvim
+
+Database / API / environment
+- vim-dadbod
+- vim-dadbod-ui
+- vim-dadbod-completion
+- kulala.nvim
+- liveserver.nvim
+- ecolog.nvim
+
+AI assisted coding
+- supermaven-nvim
+- opencode.nvim
+
+Notes / writing
+- neorg
+
+Utility dependencies
+- plenary.nvim
+- pathlib.nvim
+- nvim-nio
+- lua-utils.nvim
+- lua-async-await
+- promise-async
+
+Alphabetical raw list
+- LuaSnip
+- aerial.nvim
+- alpha-nvim
+- auto-session
+- blink-cmp-avante
+- blink.cmp
+- bufferline.nvim
+- catppuccin
+- clangd_extensions.nvim
+- cmake-tools.nvim
+- compiler.nvim
+- conform.nvim
+- crates.nvim
+- diffview.nvim
+- dressing.nvim
+- ecolog.nvim
+- everblush
+- everforest
+- fidget.nvim
+- fkthemes.nvim
+- flash.nvim
+- flutter-tools.nvim
+- friendly-snippets
+- fugit2.nvim
+- git-blame.nvim
+- git-conflict.nvim
+- gitsigns.nvim
+- gruvbox
+- gruvbox-material
+- helpview.nvim
+- hlchunk.nvim
+- image.nvim
+- indent-blankline.nvim
+- kanagawa.nvim
+- kulala.nvim
+- lazy.nvim
+- lazydev.nvim
+- lazygit.nvim
+- liveserver.nvim
+- lsp-lens.nvim
+- lspsaga.nvim
+- lua-async-await
+- lua-utils.nvim
+- lualine.nvim
+- luvit-meta
+- markview.nvim
+- mason-lspconfig.nvim
+- mason-nvim-dap.nvim
+- mason-tool-installer.nvim
+- mason.nvim
+- neo-tree.nvim
+- neorg
+- neoscroll.nvim
+- neotest
+- neotest-ctest
+- neotest-golang
+- neotest-python
+- neovim-ayu
+- noice.nvim
+- nui.nvim
+- nvim-autopairs
+- nvim-bqf
+- nvim-dap
+- nvim-dap-go
+- nvim-dap-ui
+- nvim-dap-virtual-text
+- nvim-java
+- nvim-java-core
+- nvim-java-dap
+- nvim-java-test
+- nvim-lint
+- nvim-lspconfig
+- nvim-nio
+- nvim-notify
+- nvim-tinygit
+- nvim-treesitter
+- nvim-treesitter-context
+- nvim-treesitter-textobjects
+- nvim-ufo
+- nvim-web-devicons
+- nvim-window-picker
+- oil.nvim
+- opencode.nvim
+- overseer.nvim
+- pathlib.nvim
+- plenary.nvim
+- project.nvim
+- promise-async
+- quicker.nvim
+- refactoring.nvim
+- rose-pine
+- rustaceanvim
+- solarized-osaka.nvim
+- spring-boot.nvim
+- statuscol.nvim
+- supermaven-nvim
+- tailwindcss-colorizer-cmp.nvim
+- telescope-fzf-native.nvim
+- telescope-undo.nvim
+- telescope.nvim
+- themeInitNvim
+- tiny-inline-diagnostic.nvim
+- todo-comments.nvim
+- toggleterm.nvim
+- tokyonight.nvim
+- tree-sitter-norg
+- tree-sitter-norg-meta
+- trouble.nvim
+- typescript-tools.nvim
+- venv-selector.nvim
+- vim-dadbod
+- vim-dadbod-completion
+- vim-dadbod-ui
+- vim-nightfly-guicolors
+- which-key.nvim

@@ -1,0 +1,837 @@
+NEOVIM TUTOR CHO SETUP CUA BAN
+================================
+
+Muc tieu cua file nay
+---------------------
+
+Day la tai lieu hoc Neovim theo cach thuc dung hang ngay, dua tren keymap va plugin
+dang co trong config cua ban. Neu ban moi dung Vim/Neovim, hay di tu Phan 1 den
+Phan 5. Neu da quen Vim, hay doc nhanh cac phan keybind rieng cua setup nay.
+
+Quy uoc:
+- <leader> trong config cua ban la phim Space.
+- Khi tai lieu ghi <leader>ff nghia la bam Space roi bam f roi bam f.
+- Normal mode la che do di chuyen va ra lenh.
+- Insert mode la che do go chu.
+- Visual mode la che do chon vung.
+- Command mode la che do go lenh bat dau bang :.
+
+
+PHAN 1: TU DUY VIM/NEOVIM
+-------------------------
+
+Neovim khong giong editor thong thuong. Ban lam viec bang cac che do:
+
+- Normal: di chuyen, xoa, copy, tim kiem, goi LSP, mo file.
+- Insert: nhap text.
+- Visual: chon text roi thao tac.
+- Command: chay lenh nhu :w, :q, :Lazy, :Mason.
+- Terminal: tuong tac voi shell ben trong Neovim.
+
+Nguyen tac quan trong:
+- O Normal mode cang nhieu cang tot.
+- Vao Insert mode de go, xong bam Esc de quay lai Normal.
+- Ket hop operator + motion: d + w = xoa den tu tiep theo, c + i + w = doi ca tu.
+- Dung text object de sua code nhanh: ci", ci), ci}, diw, yiw.
+
+
+PHAN 2: CO BAN CAN THUOC
+------------------------
+
+Thoat va luu:
+- :w       Luu file.
+- :q       Thoat window hien tai.
+- :wq      Luu va thoat.
+- :q!      Thoat khong luu.
+- :qa      Thoat tat ca.
+
+Di chuyen co ban:
+- h        Trai.
+- j        Xuong.
+- k        Len.
+- l        Phai.
+- w        Sang dau tu tiep theo.
+- b        Lui ve dau tu truoc.
+- e        Sang cuoi tu.
+- 0        Dau dong.
+- ^        Ky tu khong phai space dau dong.
+- $        Cuoi dong.
+- gg       Dau file.
+- G        Cuoi file.
+- Ctrl-d   Xuong nua man hinh.
+- Ctrl-u   Len nua man hinh.
+- zz       Dua dong hien tai vao giua man hinh.
+
+Vao Insert mode:
+- i        Insert truoc con tro.
+- I        Insert dau dong.
+- a        Insert sau con tro.
+- A        Insert cuoi dong.
+- o        Tao dong moi ben duoi.
+- O        Tao dong moi ben tren.
+
+Sua text:
+- x        Xoa ky tu duoi con tro.
+- r        Thay 1 ky tu.
+- s        Xoa 1 ky tu va vao Insert.
+- cw       Change word: xoa den het tu va vao Insert.
+- ciw      Change inner word: doi ca tu.
+- diw      Delete inner word: xoa ca tu.
+- dd       Xoa dong.
+- yy       Copy dong.
+- p        Paste sau con tro/dong hien tai.
+- P        Paste truoc con tro/dong hien tai.
+- u        Undo.
+- Ctrl-r   Redo.
+- .        Lap lai hanh dong sua gan nhat.
+
+Visual mode:
+- v        Chon theo ky tu.
+- V        Chon theo dong.
+- Ctrl-v   Chon block/cot.
+
+Search:
+- /text    Tim xuoi.
+- ?text    Tim nguoc.
+- n        Ket qua tiep theo.
+- N        Ket qua truoc.
+- *        Tim tu duoi con tro.
+
+
+PHAN 3: WINDOW, BUFFER, TAB
+---------------------------
+
+Window la khung nhin. Buffer la file dang mo.
+
+Lenh goc cua Vim:
+- :sp      Chia ngang.
+- :vsp     Chia doc.
+- Ctrl-w h Sang window trai.
+- Ctrl-w j Sang window duoi.
+- Ctrl-w k Sang window tren.
+- Ctrl-w l Sang window phai.
+- :bd      Dong buffer hien tai.
+
+Trong setup cua ban nen dung:
+- <leader>fB   Mo danh sach buffer bang Telescope.
+- <leader>ff   Tim file trong project.
+- <leader>fr   Mo recent files.
+- <leader>e    Mo Neo-tree.
+- <leader>O    Mo Oil de sua filesystem nhu sua buffer.
+
+Khi nao dung:
+- Dung Telescope de nhay nhanh den file/buffer.
+- Dung Neo-tree khi can nhin cay thu muc.
+- Dung Oil khi can rename/move/delete file theo kieu editor.
+
+
+PHAN 4: FINDER VA PROJECT NAVIGATION
+------------------------------------
+
+Nhom <leader>f la nhom tim kiem.
+
+- <leader>ff   Tim file trong project.
+  Dung khi biet ten file hoac mot phan ten file.
+
+- <leader>fF   Tim tat ca file, ke ca file bi ignore tuy config finder.
+  Dung khi file khong hien trong <leader>ff.
+
+- <leader>fw   Live grep / tim chu trong project.
+  Dung khi nho noi dung code nhung khong nho file.
+
+- <leader>fB   Tim buffer dang mo.
+  Dung khi dang lam viec voi nhieu file.
+
+- <leader>fr   Recent files.
+  Dung khi quay lai file vua sua gan day.
+
+- <leader>fp   Projects.
+  Dung khi chuyen giua project.
+
+- <leader>fh   Help tags.
+  Dung khi can doc help Neovim/plugin.
+
+- <leader>fk   Keymaps.
+  Dung khi quen phim tat.
+
+- <leader>fC   Commands.
+  Dung khi nho mang mang ten lenh.
+
+- <leader>fa   Autocommands.
+  Dung khi debug event/autocmd.
+
+- <leader>fc   Git commits.
+  Dung khi xem commit history.
+
+- <leader>fm   Marks.
+  Dung khi nhay den mark da dat.
+
+- <leader>fM   Man pages.
+  Dung cho C/C++/Unix docs.
+
+- <leader>ft   Themes.
+  Dung de doi colorscheme.
+
+- <leader>fn   Notification history.
+  Dung khi notification bien mat qua nhanh.
+
+- <leader>fb   Resume Telescope.
+  Dung de mo lai finder vua dung.
+
+- <leader>fH   Highlights.
+  Dung khi debug mau sac/highlight group.
+
+- <leader>fT   Todo comments.
+  Dung de tim TODO/FIXME/NOTE trong repo.
+
+
+PHAN 5: LSP VA IDE WORKFLOW
+---------------------------
+
+LSP giup Neovim co tinh nang IDE: go to definition, hover, rename, code action,
+diagnostic, symbol search, inlay hints.
+
+Keymap LSP chinh:
+
+- K            Hover documentation.
+  Dung khi muon xem type/doc cua symbol duoi con tro.
+
+- Gd           Go to definition.
+  Dung khi muon nhay den noi dinh nghia.
+
+- GD           LSP finder.
+  Dung khi muon xem definition/references/implementation theo UI cua Lspsaga.
+
+- Gp           Peek definition.
+  Dung khi muon xem dinh nghia ma khong roi file hien tai.
+
+- gr           References/finder.
+  Dung khi muon xem cac noi su dung symbol.
+
+- gI           Go to implementation.
+  Dung voi interface/type/class co implementation.
+
+- <leader>la   Code action.
+  Dung de quick fix, organize import, generate missing code, fix lint.
+
+- <leader>lr   Rename symbol.
+  Dung khi doi ten bien/function/class an toan trong project.
+
+- <leader>lf   Format file/vung chon.
+  Dung khi muon format thu cong.
+
+- <leader>lF   Toggle autoformat.
+  Dung khi project khong muon format on save tam thoi.
+
+- <leader>li   LspInfo.
+  Dung de check file hien tai co LSP nao attach.
+
+- <leader>lR   Restart LSP.
+  Dung khi LSP bi treo, mat diagnostic, root sai.
+
+- <leader>lh   Toggle inlay hints.
+  Dung khi muon hien/an type hints, parameter hints.
+
+- <leader>lo   Code outline.
+  Dung de xem structure file: class, function, method.
+
+- <leader>lI   Incoming calls.
+  Dung de xem ai goi function hien tai.
+
+- <leader>lO   Outgoing calls.
+  Dung de xem function hien tai goi nhung gi.
+
+- <leader>lj   Next diagnostic.
+  Dung de nhay den loi/canh bao tiep theo.
+
+- <leader>lk   Previous diagnostic.
+  Dung de quay lai loi/canh bao truoc.
+
+- <leader>ll   Toggle code lens.
+  Dung khi code lens lam roi mat hoac can bat lai.
+
+- <leader>ls   Buffer symbols.
+  Dung de tim symbol trong file hien tai.
+
+- <leader>lS   Workspace symbols.
+  Dung de tim symbol trong toan project.
+
+- <leader>lm   Mason Installer.
+  Dung de cai LSP/formatter/linter/debugger.
+
+Keymap LSP native co the co san trong Neovim moi:
+- gra          Code action native.
+- grn          Rename native.
+- grr          References native.
+- gri          Implementation native.
+- grt          Type definition native.
+- gO           Document symbols native.
+- ]d / [d      Next/previous diagnostic.
+- ]D / [D      Next/previous ERROR diagnostic.
+
+Khi nao dung LSP workflow:
+- Muon hieu code: K, Gd, gr, <leader>lo.
+- Muon sua code an toan: <leader>lr, <leader>la.
+- Muon debug LSP: <leader>li, <leader>lR, :Mason, :checkhealth.
+
+
+PHAN 6: COMPLETION, SNIPPET, AUTOPAIRS
+--------------------------------------
+
+Setup cua ban dung blink.cmp, LuaSnip, friendly-snippets va autopairs.
+
+Insert mode completion:
+
+- <C-Space>    Mo completion menu / docs.
+- <M-;>        Mo completion menu / docs fallback.
+- <Tab>        Accept completion dang chon hoac nhay snippet tiep.
+- <S-Tab>      Chon item truoc hoac nhay snippet lui.
+- <C-n>        Completion item tiep theo.
+- <C-p>        Completion item truoc.
+- <Down>       Completion item tiep theo.
+- <Up>         Completion item truoc.
+- <C-b>        Cuon docs len.
+- <C-f>        Cuon docs xuong.
+
+AI completion cua Supermaven:
+- <A-f>        Accept AI suggestion.
+- <A-w>        Accept mot word tu AI suggestion.
+
+Khi nao dung:
+- Dung <Tab> khi menu completion da hien va item dung dang duoc chon.
+- Dung <C-n>/<C-p> khi muon chon item khac truoc khi accept.
+- Dung <A-f> khi AI ghost text dung y ban.
+- Dung <A-w> khi chi muon lay mot phan suggestion AI.
+
+Autopairs:
+- Go ( se co ().
+- Go { se co {}.
+- Go [ se co [].
+- Go " se co "".
+
+Snippet:
+- Snippet tu friendly-snippets va folder snippets/ cua ban duoc load.
+- Dung <Tab>/<S-Tab> de nhay giua cac placeholder trong snippet.
+- :LuaSnipEdit de sua snippet.
+
+
+PHAN 7: FORMAT, LINT, DIAGNOSTIC
+--------------------------------
+
+- <leader>lf   Format file/vung chon.
+- <leader>lF   Toggle autoformat.
+- :ConformInfo Xem formatter nao dang dung cho file hien tai.
+- :LspInfo     Xem LSP dang attach.
+- :Mason       Xem tool da cai hay chua.
+
+Khi file khong co LSP:
+1. Chay :set ft? de xem filetype.
+2. Chay :LspInfo de xem server attach chua.
+3. Chay :Mason de xem server da install chua.
+4. Kiem tra project root co package.json, tsconfig.json, go.mod, pom.xml, build.gradle.
+5. Neu LSP bi sai, dung <leader>lR de restart.
+
+
+PHAN 8: GIT WORKFLOW
+--------------------
+
+Nhom Git:
+
+- <leader>gg   Mo Lazygit bang terminal.
+- <leader>gL   Mo LazyGit.
+- <leader>gd   Toggle Diffview.
+- <leader>gD   Diffview file history.
+- <leader>gb   Telescope checkout branch.
+- <leader>gt   Toggle GitBlame.
+- <leader>gO   Open commit URL.
+- <leader>gf   Open file URL.
+- <leader>gC   Copy file URL.
+- <leader>gc   Copy commit URL.
+- <leader>gs   Copy commit SHA.
+
+Conflict:
+- ]g           Next git conflict.
+- [g           Previous git conflict.
+- <leader>go   Choose ours.
+- <leader>gt   Choose theirs.
+- <leader>gb   Choose both.
+- <leader>gn   Choose none.
+
+Gitsigns hunk workflow:
+- <leader>hs   Stage hunk.
+- <leader>hr   Reset hunk.
+- <leader>hS   Stage buffer.
+- <leader>hu   Undo stage hunk.
+- <leader>hR   Reset buffer.
+- <leader>hp   Preview hunk.
+- <leader>hb   Blame line.
+- <leader>hd   Diff this.
+- <leader>hD   Diff against previous revision.
+- <leader>td   Toggle deleted lines.
+
+Khi nao dung:
+- Dung <leader>gg khi can commit/rebase/push/pull nhanh.
+- Dung <leader>hp de review hunk truoc khi stage.
+- Dung Diffview khi review branch/PR cuc bo.
+- Dung conflict keymap khi merge conflict.
+
+Luu y:
+- Co the co overlap giua git-blame va git-conflict o <leader>gt/<leader>gb tuy plugin nao dang active.
+- Neu thay keymap hanh xu la, chay <leader>fk va tim keymap do.
+
+
+PHAN 9: DEBUGGING DAP
+---------------------
+
+Nhom debug:
+
+- <leader>dc   Continue/start debug.
+- <leader>do   Step over.
+- <leader>di   Step into.
+- <leader>du   Step out.
+- <leader>db   Toggle breakpoint.
+- <leader>dB   Conditional breakpoint.
+- <leader>dd   Toggle DAP UI.
+- <leader>dl   Run last debug session.
+- <leader>dr   Open REPL.
+- <leader>dt   Terminate debug session.
+
+Workflow:
+1. Dat breakpoint bang <leader>db.
+2. Chay debug bang <leader>dc.
+3. Mo UI bang <leader>dd neu can xem variables/stack.
+4. Step bang <leader>do/<leader>di/<leader>du.
+5. Ket thuc bang <leader>dt.
+
+Khi nao dung:
+- Backend, Go, Java, Node.js: dung DAP khi can inspect runtime state.
+- Frontend UI bug: co the van can browser devtools, DAP tuy project setup.
+
+
+PHAN 10: TESTING
+----------------
+
+Nhom test:
+
+- <leader>xr   Run nearest test.
+- <leader>xf   Run test file.
+- <leader>xw   Run workspace/tests suite.
+- <leader>xd   Debug nearest test.
+- <leader>xs   Toggle test summary.
+- <leader>xo   Show output.
+- <leader>xO   Toggle output panel.
+- <leader>xS   Stop running tests.
+
+Khi nao dung:
+- Dang sua 1 test: <leader>xr.
+- Sua ca file spec/test: <leader>xf.
+- Can xem danh sach pass/fail: <leader>xs.
+- Test bi fail can log: <leader>xo hoac <leader>xO.
+- Test can inspect debugger: <leader>xd.
+
+
+PHAN 11: TERMINAL, TASK, RUNNER
+-------------------------------
+
+Terminal:
+
+- <leader>tf   New floating terminal.
+- <leader>tF   Toggle floating terminal.
+- <leader>th   New horizontal terminal.
+- <leader>tH   Toggle horizontal terminal.
+- <leader>tv   New vertical terminal.
+- <leader>tV   Toggle vertical terminal.
+- <leader>ts   Select terminal.
+- <leader>tt   Toggle/close all terminals.
+
+Compiler/runner:
+- <leader>r    Run current file.
+- <leader>rr   Run current file/action.
+- <leader>rR   Redo last action.
+- <leader>ro   Open compiler output.
+- <leader>rs   Stop running tasks.
+- <leader>rt   Toggle result window.
+
+Khi nao dung:
+- Dung terminal float cho lenh ngan: npm test, pnpm dev, go test.
+- Dung terminal horizontal/vertical cho process chay lau.
+- Dung runner khi muon chay file hien tai nhanh.
+
+
+PHAN 12: DATABASE, HTTP, WEB
+----------------------------
+
+Database:
+
+- <leader>Dt   Toggle DBUI.
+- <leader>Da   Add DB connection.
+- <leader>Df   Find DB buffer.
+
+Dung khi:
+- Can query PostgreSQL/MySQL/SQLite tu Neovim.
+- Can luu connection va mo lai nhanh.
+
+HTTP / API:
+
+- <leader>Hs   Kulala send request.
+- <leader>Ha   Kulala send all requests.
+- <leader>Hr   Kulala replay last request.
+
+Dung khi:
+- Test REST API trong file .http/.rest.
+- Lam backend NestJS/Spring Boot/Go API.
+
+Live server:
+
+- <leader>ws   Start Live Server.
+- <leader>wS   Stop Live Server.
+- <leader>wl   Select Live Server root.
+
+Dung khi:
+- Mo HTML/CSS/JS static page nhanh.
+- Preview landing page hoac prototype khong can framework dev server.
+
+
+PHAN 13: JAVA WORKFLOW
+----------------------
+
+Keymap Java trong ftplugin:
+
+- <leader>jo   Organize Imports.
+- <leader>jr   Java Run Main.
+- <leader>jt   Java Test Method.
+- <leader>jT   Java Test Class.
+
+Workflow Spring Boot/Java:
+1. Mo project co pom.xml/build.gradle.
+2. Check :LspInfo de dam bao jdtls attach.
+3. Dung K, Gd, gr de doc code.
+4. Dung <leader>jo de organize imports.
+5. Dung <leader>jt/<leader>jT de chay test.
+6. Dung DAP neu can debug.
+
+
+PHAN 14: PYTHON, GO, C/C++, RUST, JS/TS
+---------------------------------------
+
+Python:
+- <leader>vs   Venv Select.
+  Dung de chon virtualenv cho project Python.
+
+Go:
+- LSP: gopls.
+- Test: neotest-golang.
+- Debug: nvim-dap-go.
+- Dung <leader>xr/<leader>xf cho test, <leader>dc cho debug.
+
+C/C++:
+- LSP: clangd + clangd_extensions.
+- Neu clangd attach sai filetype, check :set ft? va :LspInfo.
+- CMake workflow co cmake-tools.nvim.
+
+Rust:
+- LSP/tooling: rustaceanvim.
+- Crate support: crates.nvim.
+
+JavaScript/TypeScript/React:
+- LSP: typescript-tools.
+- Tailwind/CSS support thong qua LSP va completion.
+- Format/lint thong qua conform/nvim-lint/LSP tuy project.
+- Dung <leader>la cho organize import/quick fix.
+- Dung <leader>lr de rename.
+- Dung <leader>fw de grep component/hook/function trong monorepo.
+
+
+PHAN 15: AI WORKFLOW
+--------------------
+
+Supermaven inline:
+- <A-f>   Accept full suggestion.
+- <A-w>   Accept word.
+
+Opencode:
+- <leader>aa    Toggle opencode.
+- <leader>ai    Open input.
+- <leader>aI    Open input in new session.
+- <leader>ao    Open output.
+- <leader>at    Toggle focus.
+- <leader>aq    Close.
+- <leader>as    Select session.
+- <leader>ap    Configure provider.
+- <leader>ad    Open diff.
+- <leader>a]    Next diff.
+- <leader>a[    Previous diff.
+- <leader>ac    Close diff.
+- <leader>ara   Revert current file to last snapshot.
+- <leader>art   Revert current file to last message.
+- <leader>arA   Revert all files to last snapshot.
+- <leader>arT   Revert all files to last message.
+- <leader>arr   Restore current file.
+- <leader>arR   Restore all files.
+- <leader>ax    Swap opencode window position.
+
+Permission prompts:
+- <leader>apa   Accept permission.
+- <leader>apA   Accept all permissions.
+- <leader>apd   Deny permission.
+
+Khi nao dung:
+- Supermaven: khi dang code lien tuc va suggestion dung y.
+- Opencode: khi can hoi/sua nhieu file, refactor, giai thich loi, review diff.
+- Diff keymap: khi AI sua code va ban muon review/accept/revert co kiem soat.
+
+
+PHAN 16: MARKDOWN, NOTES, UI
+----------------------------
+
+Markdown:
+- <leader>mv   Toggle Markview.
+- <leader>mp   Markdown Preview.
+
+Aerial/outline:
+- <leader>ao   Toggle Aerial outline.
+- <leader>aO   Toggle Aerial outline on right.
+
+Notification:
+- <leader>nn   Notification history.
+- <leader>nd   Dismiss all notifications.
+
+Theme:
+- <leader>[    Theme picker.
+- <leader>ft   Telescope themes.
+
+Khi nao dung:
+- Outline khi file dai, Java class lon, React component nhieu function.
+- Notification history khi LSP/plugin bao loi qua nhanh.
+- Theme picker khi debug highlight/theme.
+
+
+PHAN 17: TREE-SITTER TEXT OBJECTS
+---------------------------------
+
+Setup cua ban co Treesitter textobjects, rat manh khi sua code co cau truc.
+
+Visual/operator textobjects:
+- af / if   Around/inner function.
+- ac / ic   Around/inner class.
+- aa / ia   Around/inner parameter.
+- ai / ii   Around/inner conditional.
+- al / il   Around/inner loop.
+- at / it   Around/inner tag.
+- as / is   Around/inner statement.
+- aw        Around call.
+
+Vi du:
+- vaf       Chon ca function.
+- dif       Xoa ben trong function.
+- cia       Change inner parameter.
+- dat       Xoa ca HTML/JSX tag.
+
+Navigation:
+- ]f / [f   Next/previous function start.
+- ]c / [c   Next/previous class start.
+- ]a / [a   Next/previous parameter start.
+- ]i / [i   Next/previous conditional start.
+- ]l / [l   Next/previous loop start.
+- ]F / [F   Next/previous function end.
+- ]C / [C   Next/previous class end.
+
+Swap:
+- ]A        Swap parameter with next.
+- [A        Swap parameter with previous.
+
+Khi nao dung:
+- Refactor function dai.
+- Sua JSX/HTML tag.
+- Di chuyen nhanh trong class/function.
+- Doi thu tu argument.
+
+
+PHAN 18: SESSIONS VA WORKSPACE
+------------------------------
+
+Sessions:
+
+- <leader>ss   Save session.
+- <leader>sr   Restore session.
+- <leader>sd   Delete session.
+- <leader>sS   Search sessions.
+- <leader>st   Toggle autosave.
+
+Khi nao dung:
+- Project lon co nhieu buffer/window.
+- Dang lam feature nhieu ngay.
+- Muon dong Neovim nhung hom sau quay lai dung layout.
+
+
+PHAN 19: KIEM TRA SAI KEYMAP / DEBUG CONFIG
+-------------------------------------------
+
+Lenh huu ich:
+
+- :KeymapConflicts     Check keymap conflict neu command co trong config.
+- <leader>fk           Tim keymaps bang Telescope.
+- :Lazy                Xem plugin da load/chua load.
+- :Lazy profile        Xem plugin nao cham.
+- :Mason               Quan ly LSP/formatter/linter/debugger.
+- :LspInfo             Xem LSP attach vao buffer.
+- :ConformInfo         Xem formatter.
+- :checkhealth         Kiem tra health tong quat.
+- :checkhealth treesitter
+- :checkhealth telescope
+
+Khi co loi:
+1. Xem notification: <leader>nn.
+2. Xem LSP: :LspInfo.
+3. Xem Mason: :Mason.
+4. Xem filetype: :set ft?
+5. Xem plugin load: :Lazy.
+6. Tim keymap: <leader>fk.
+
+
+PHAN 20: LO TRINH HOC 14 NGAY
+-----------------------------
+
+Ngay 1-2: Vim basic
+- Hoc h/j/k/l, w/b/e, 0/$, gg/G.
+- Hoc i/a/o, dd/yy/p, u/Ctrl-r.
+- Tap thoat Insert bang Esc.
+
+Ngay 3-4: Editing speed
+- Hoc ciw, diw, yiw.
+- Hoc ci", ci), ci}.
+- Hoc /, n, N, *.
+- Tap dung . de lap lai thao tac.
+
+Ngay 5-6: Project navigation
+- Dung <leader>ff, <leader>fw, <leader>fB, <leader>fr.
+- Dung <leader>e va <leader>O.
+
+Ngay 7-8: LSP
+- Dung K, Gd, gr, <leader>la, <leader>lr.
+- Dung <leader>lj/<leader>lk de fix diagnostic.
+- Dung :LspInfo khi file khong co LSP.
+
+Ngay 9: Formatting/testing
+- Dung <leader>lf, <leader>lF.
+- Dung <leader>xr, <leader>xf, <leader>xs.
+
+Ngay 10: Git
+- Dung <leader>gg.
+- Dung <leader>hp, <leader>hs, <leader>hr.
+- Dung Diffview khi review thay doi lon.
+
+Ngay 11: Debug
+- Dat breakpoint <leader>db.
+- Chay debug <leader>dc.
+- Step <leader>do/<leader>di/<leader>du.
+
+Ngay 12: Textobjects nang cao
+- Tap vaf, dif, dat, cia.
+- Dung ]f/[f, ]c/[c de nhay code.
+
+Ngay 13: AI
+- Dung <A-f>/<A-w> cho inline suggestion.
+- Dung opencode cho refactor/giai thich/fix loi.
+
+Ngay 14: Rut gon workflow rieng
+- Ghi lai 20 keymap hay dung nhat.
+- Xoa hoac doi keymap nao bi trung/thay kho nho.
+- Chay :Lazy profile va :checkhealth de giu setup sach.
+
+
+PHAN 21: 20 KEYMAP NEN DUNG HANG NGAY
+-------------------------------------
+
+1.  <leader>ff   Tim file.
+2.  <leader>fw   Tim text trong project.
+3.  <leader>fB   Doi buffer.
+4.  <leader>fr   Recent files.
+5.  K            Xem doc/type.
+6.  Gd           Go to definition.
+7.  gr           Find references.
+8.  <leader>la   Code action.
+9.  <leader>lr   Rename.
+10. <leader>lf   Format.
+11. <leader>lj   Next diagnostic.
+12. <leader>lk   Previous diagnostic.
+13. <leader>gg   Lazygit.
+14. <leader>hp   Preview hunk.
+15. <leader>hs   Stage hunk.
+16. <leader>xr   Run nearest test.
+17. <leader>db   Toggle breakpoint.
+18. <leader>dc   Start/continue debug.
+19. <leader>tF   Toggle floating terminal.
+20. <A-f>        Accept AI suggestion.
+
+
+PHAN 22: KHI NAO DUNG PLUGIN NAO
+--------------------------------
+
+- Telescope: tim file, grep, buffer, keymap, help.
+- Neo-tree: xem cay thu muc.
+- Oil: sua filesystem nhu sua text.
+- LSP: semantic navigation, rename, code action.
+- Treesitter: highlight, textobjects, code navigation.
+- Conform: format.
+- nvim-lint/LSP diagnostics: lint.
+- Gitsigns: hunk workflow.
+- Lazygit/Diffview: git UI nang cao.
+- DAP: debug runtime.
+- Neotest: chay test.
+- Toggleterm: terminal trong Neovim.
+- Dadbod: database.
+- Kulala: HTTP/API testing.
+- LiveServer: preview static web.
+- Supermaven/Opencode: AI coding.
+
+
+PHAN 23: CHECKLIST KHI LSP KHONG CHAY
+-------------------------------------
+
+- Filetype dung chua: :set ft?
+- LSP attach chua: :LspInfo.
+- Tool install chua: :Mason.
+- Project co root marker chua:
+  - JS/TS: package.json, tsconfig.json, jsconfig.json.
+  - Go: go.mod, go.work.
+  - Java: pom.xml, build.gradle, settings.gradle.
+  - Rust: Cargo.toml.
+  - C/C++: compile_commands.json, CMakeLists.txt.
+- Neu open file don le ngoai project, mot so LSP co the khong attach dung.
+- Thu restart: <leader>lR.
+- Xem notification: <leader>nn.
+
+
+PHAN 24: CHECKLIST KHI COMPLETION/TAB KHONG CHAY
+------------------------------------------------
+
+- Dang o Insert mode chua.
+- Completion menu co hien khong: <C-Space>.
+- Neu menu hien, dung <C-n>/<C-p> de chon item roi <Tab>.
+- Neu la AI ghost text, dung <A-f> thay vi <Tab>.
+- Neu snippet dang active, <Tab>/<S-Tab> se nhay placeholder.
+- Check plugin completion: :Lazy va tim blink.cmp.
+- Check LSP attach: :LspInfo.
+
+
+PHAN 25: TU DUY SU DUNG NEOVIM NHU IDE CHINH
+--------------------------------------------
+
+Mot workflow tot thuong la:
+
+1. Mo project.
+2. <leader>ff de mo file can sua.
+3. <leader>fw de tim usage/context.
+4. Gd/gr/K de hieu code.
+5. Sua bang textobjects: ciw, ci", dat, vaf.
+6. Dung completion/snippet de code nhanh.
+7. <leader>la cho quick fix/import.
+8. <leader>lf format.
+9. <leader>xr hoac <leader>xf chay test.
+10. <leader>hp review hunk.
+11. <leader>hs stage hunk.
+12. <leader>gg commit/push.
+
+Neu giu duoc vong lap nay, Neovim se khong chi la editor ma la IDE thuc dung:
+nhanh, it friction, va rat manh khi lam monorepo/fullstack/backend.

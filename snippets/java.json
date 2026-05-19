@@ -1,0 +1,36 @@
+{
+  "Main Method": {
+    "prefix": "main",
+    "body": [
+      "public static void main(String[] args) {",
+      "    ${1}",
+      "}"
+    ],
+    "description": "Create a Java main method"
+  },
+  "Spring Rest Controller": {
+    "prefix": "rest",
+    "body": [
+      "@RestController",
+      "@RequestMapping(\"/${1:api}\")",
+      "public class ${2:Controller} {",
+      "",
+      "    @GetMapping",
+      "    public ${3:String} ${4:index}() {",
+      "        return ${5:\"ok\"};",
+      "    }",
+      "}"
+    ],
+    "description": "Create a Spring REST controller"
+  },
+  "JUnit Test": {
+    "prefix": "test",
+    "body": [
+      "@Test",
+      "void ${1:shouldDoSomething}() {",
+      "    ${2}",
+      "}"
+    ],
+    "description": "Create a JUnit test"
+  }
+}
