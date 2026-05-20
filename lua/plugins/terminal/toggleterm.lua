@@ -56,6 +56,15 @@ return {
     vim.keymap.set("n", "<leader>gg", function()
       utils.git()
     end, { desc = "ToggleTerm | Lazygit", silent = true })
+
+    vim.keymap.set("n", "<leader>MS", function()
+      if vim.fn.executable("scooter") == 0 then
+        vim.notify("scooter is not installed", vim.log.levels.WARN, { title = "Scooter" })
+        return
+      end
+
+      vim.cmd("TermNew direction=float cmd=scooter")
+    end, { desc = "Match | Scooter Project Replace", silent = true })
   end,
   cmd = {
     "ToggleTerm",

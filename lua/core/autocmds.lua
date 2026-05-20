@@ -181,29 +181,6 @@ autocmd("ModeChanged", {
   desc = "Show search highlights in normal mode, hide in insert mode",
 })
 
-autocmd("FileType", {
-  pattern = { "gitcommit", "markdown", "text", "log" },
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.spell = true
-  end,
-  group = general,
-  desc = "Enable Wrap in these filetypes",
-})
-
-local overseer = augroup("Overseer", { clear = true })
-
-autocmd("FileType", {
-  pattern = "OverseerList",
-  callback = function()
-    vim.opt_local.relativenumber = false
-    vim.opt_local.number = false
-    vim.cmd "startinsert!"
-  end,
-  group = overseer,
-  desc = "Enter Normal Mode In OverseerList",
-})
-
 -- Timer-based file reload for TUI
 local file_check_timer = nil
 local last_check = {}
@@ -270,7 +247,6 @@ autocmd("FileType", {
     "nvcheatsheet",
     "lazy",
     "mason",
-    "OverseerList",
   },
   callback = function()
     vim.opt_local.foldcolumn = "0"
@@ -289,17 +265,4 @@ autocmd("FileType", {
   end,
   group = general,
   desc = "Disable auto comment continuation",
-})
-
--- Better quickfix window
-autocmd("FileType", {
-  pattern = "qf",
-  callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-    vim.opt_local.scrolloff = 0
-    vim.keymap.set("n", "q", "<cmd>close<CR>", { buffer = true, silent = true })
-  end,
-  group = general,
-  desc = "Better quickfix window",
 })

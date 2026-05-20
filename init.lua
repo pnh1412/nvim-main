@@ -1,6 +1,6 @@
 require("core.globals")
 require("core.env")
-require("config.options")
+require("core.options")
 require("core.filetype")
 require("core.autocmds")
 require("core.commands")

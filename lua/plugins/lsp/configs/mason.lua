@@ -112,7 +112,7 @@ return {
 		return not vim.g.no_ide
 	end,
 	event = {
-		"BufReadPost",
+		"BufReadPre",
 		"BufNewFile",
 	},
 	init = function()
@@ -152,48 +152,85 @@ return {
 				"neovim/nvim-lspconfig",
 			},
 			config = function()
-				vim.schedule(function()
-					local ok_mason, mason_lspconfig = pcall(require, "mason-lspconfig")
-					local ok_opts, opts = pcall(require, "config.lsp")
-					if not (ok_mason and ok_opts) then
+				local ok_mason, mason_lspconfig = pcall(require, "mason-lspconfig")
+				local ok_opts, opts = pcall(require, "config.lsp")
+				if not (ok_mason and ok_opts) then
+					return
+				end
+
+				mason_lspconfig.setup({
+					automatic_enable = false,
+				})
+
+				vim.lsp.config("*", {
+					capabilities = opts.capabilities,
+					on_attach = opts.on_attach,
+				})
+
+				local excluded = { "ts_ls", "jdtls", "rust_analyzer", "sqls" }
+				local fallback_servers = {
+					"html",
+					"cssls",
+					"tailwindcss",
+					"eslint",
+					"emmet_language_server",
+					"stylelint_lsp",
+					"biome",
+					"vtsls",
+					"vue_ls",
+					"graphql",
+					"gopls",
+					"clangd",
+					"sqlls",
+					"lua_ls",
+					"jsonls",
+					"yamlls",
+					"dockerls",
+					"taplo",
+					"pyright",
+				}
+
+				local function setup_servers()
+					local servers = mason_lspconfig.get_installed_servers()
+					if vim.tbl_isempty(servers) then
+						servers = fallback_servers
+					end
+
+					for _, server in ipairs(servers) do
+						if not vim.tbl_contains(excluded, server) then
+							local ok_settings, settings = pcall(require, "plugins.lsp.settings." .. server)
+							if ok_settings then
+								vim.lsp.config(server, settings)
+							end
+							vim.lsp.enable(server)
+						end
+					end
+					vim.lsp.enable("gdscript")
+				end
+
+				local function retrigger_current_filetype()
+					local bufnr = vim.api.nvim_get_current_buf()
+					if vim.bo[bufnr].filetype == "" then
 						return
 					end
-
-					vim.lsp.config("*", {
-						capabilities = opts.capabilities,
-						on_attach = opts.on_attach,
+					vim.api.nvim_exec_autocmds("FileType", {
+						buffer = bufnr,
+						modeline = false,
 					})
+				end
 
-					local excluded = { "ts_ls", "jdtls", "rust_analyzer", "sqls" }
+				setup_servers()
+				retrigger_current_filetype()
 
-					local function setup_servers()
-						for _, server in ipairs(mason_lspconfig.get_installed_servers()) do
-							if not vim.tbl_contains(excluded, server) then
-								local ok_settings, settings = pcall(require, "plugins.lsp.settings." .. server)
-								if ok_settings then
-									vim.lsp.config(server, settings)
-								end
-								vim.lsp.enable(server)
-							end
-						end
-						vim.lsp.enable("gdscript")
+				local mr = require("mason-registry")
+				mr:on("package:install:success", function(pkg)
+					if pkg.spec.categories[1] == "LSP" then
+						vim.defer_fn(function()
+							setup_servers()
+							vim.notify("Auto-Enable: " .. pkg.name, vim.log.levels.INFO)
+							retrigger_current_filetype()
+						end, 100)
 					end
-
-					setup_servers()
-
-					local mr = require("mason-registry")
-					mr:on("package:install:success", function(pkg)
-						if pkg.spec.categories[1] == "LSP" then
-							vim.defer_fn(function()
-								setup_servers()
-								vim.notify("Auto-Enable: " .. pkg.name, vim.log.levels.INFO)
-								require("lazy.core.handler.event").trigger({
-									event = "FileType",
-									buf = vim.api.nvim_get_current_buf(),
-								})
-							end, 100)
-						end
-					end)
 				end)
 			end,
 		},
@@ -235,12 +272,13 @@ return {
 						"html-lsp",
 						"css-lsp",
 						"tailwindcss-language-server",
-						"typescript-language-server",
+						"vtsls",
 						"eslint-lsp",
 						"emmet-language-server",
 						"stylelint-language-server",
 						"biome",
 						"vue-language-server",
+						"graphql-language-service-cli",
 
 						-- Go
 						"gopls",
@@ -294,6 +332,10 @@ return {
 
 						-- ── Linter ───────────────────────────────────
 						-- JS / TS / React / Next / NestJS
+						-- no-config JS diagnostics, useful for loose .js files
+						"quick-lint-js",
+						-- typo diagnostics in comments and strings, e.g. bacground -> background
+						"typos",
 						-- daemon mode, nhanh hơn eslint-lsp
 						"eslint_d",
 

@@ -26,7 +26,17 @@ return {
 		local function create_lsp_alias(name, subcommand)
 			if vim.fn.exists(":" .. name) == 0 then
 				vim.api.nvim_create_user_command(name, function(args)
-					vim.cmd(("lsp %s %s"):format(subcommand, args.args))
+					if (subcommand == "restart" or subcommand == "stop") and vim.tbl_isempty(vim.lsp.get_clients({ bufnr = 0 })) then
+						vim.notify("No LSP clients attached to current buffer", vim.log.levels.INFO, { title = name })
+						return
+					end
+
+					local command = vim.trim(("lsp %s %s"):format(subcommand, args.args))
+					local ok, err = pcall(vim.cmd, command)
+
+					if not ok then
+						vim.notify(err, vim.log.levels.WARN, { title = name })
+					end
 				end, {
 					nargs = "*",
 					desc = ("Alias to :lsp %s"):format(subcommand),

@@ -185,6 +185,39 @@ Nhom <leader>f la nhom tim kiem.
   Dung de tim TODO/FIXME/NOTE trong repo.
 
 
+PHAN 4.1: SEARCH AND REPLACE NHANH TRONG BUFFER
+------------------------------------------------
+
+Match.nvim dung cho search/replace nhanh trong buffer hien tai.
+No khong thay the project-wide replace; khi can tim ca repo, dung Telescope live grep.
+
+- <leader>Ms   Nhap search text roi mo Match UI.
+  Dung khi muon search/replace mot pattern cu the trong file hien tai.
+
+- <leader>Mw   Mo Match UI bang word duoi cursor.
+  Dung khi muon doi nhanh bien/text dang dung tai cursor.
+
+- <leader>Ml   Mo Match UI bang dong hien tai.
+  Dung khi muon tim/replace ca line hien tai.
+
+- <leader>MS   Mo Scooter replace TUI cho folder/project hien tai.
+  Dung khi muon search/replace nhieu file co review tung match truoc khi apply.
+
+Trong Match UI:
+- <Tab>        Chuyen giua search va replace.
+- <Up>/<Down>  Nhay qua match truoc/sau.
+- <CR>         O search window: chuyen sang replace. O replace window: replace all.
+- <C-u>        Undo replacement.
+- <C-r>        Redo replacement.
+- <Esc>/<C-q>  Dong UI.
+
+Trong Scooter:
+- Search text / Replace text: nhap noi dung tim va noi dung thay.
+- Fixed strings: bat khi muon tim chu thuong, khong dung regex.
+- Files to include/exclude: gioi han folder/file pattern can thay.
+- Chon tung match de apply khi muon thay an toan tren nhieu file.
+
+
 PHAN 5: LSP VA IDE WORKFLOW
 ---------------------------
 
@@ -211,8 +244,14 @@ Keymap LSP chinh:
 - gI           Go to implementation.
   Dung voi interface/type/class co implementation.
 
-- <leader>la   Code action.
-  Dung de quick fix, organize import, generate missing code, fix lint.
+- <leader>la   Lspsaga code action.
+  Dung de quick fix, organize import, generate missing code, fix lint voi UI cua Lspsaga.
+
+- <leader>lA   Native LSP code action.
+  Dung khi muon goi truc tiep vim.lsp.buf.code_action, hoac khi can so sanh voi Lspsaga.
+
+- <leader>lc   Color presentation.
+  Dung khi cursor nam tren ma mau va muon chon format hien thi cua mau do.
 
 - <leader>lr   Rename symbol.
   Dung khi doi ten bien/function/class an toan trong project.
@@ -234,6 +273,9 @@ Keymap LSP chinh:
 
 - <leader>lo   Code outline.
   Dung de xem structure file: class, function, method.
+
+- <leader>lp   Preview code action.
+  Dung khi muon xem preview/diff cua code action truoc khi apply.
 
 - <leader>lI   Incoming calls.
   Dung de xem ai goi function hien tai.
@@ -284,6 +326,7 @@ Insert mode completion:
 
 - <C-Space>    Mo completion menu / docs.
 - <M-;>        Mo completion menu / docs fallback.
+- <M-c>        Mo completion menu / docs fallback de bam de hon trong terminal.
 - <Tab>        Accept completion dang chon hoac nhay snippet tiep.
 - <S-Tab>      Chon item truoc hoac nhay snippet lui.
 - <C-n>        Completion item tiep theo.
@@ -341,13 +384,12 @@ Nhom Git:
 - <leader>gL   Mo LazyGit.
 - <leader>gd   Toggle Diffview.
 - <leader>gD   Diffview file history.
+- <leader>gCd  CodeDiff changed files.
+- <leader>gCf  CodeDiff current file vs HEAD.
+- <leader>gCh  CodeDiff history.
+- <leader>gCi  CodeDiff inline diff.
+- <leader>gCS  CodeDiff side-by-side diff.
 - <leader>gb   Telescope checkout branch.
-- <leader>gt   Toggle GitBlame.
-- <leader>gO   Open commit URL.
-- <leader>gf   Open file URL.
-- <leader>gC   Copy file URL.
-- <leader>gc   Copy commit URL.
-- <leader>gs   Copy commit SHA.
 
 Conflict:
 - ]g           Next git conflict.
@@ -365,6 +407,7 @@ Gitsigns hunk workflow:
 - <leader>hR   Reset buffer.
 - <leader>hp   Preview hunk.
 - <leader>hb   Blame line.
+- <leader>hB   Toggle current line blame.
 - <leader>hd   Diff this.
 - <leader>hD   Diff against previous revision.
 - <leader>td   Toggle deleted lines.
@@ -373,10 +416,11 @@ Khi nao dung:
 - Dung <leader>gg khi can commit/rebase/push/pull nhanh.
 - Dung <leader>hp de review hunk truoc khi stage.
 - Dung Diffview khi review branch/PR cuc bo.
+- Dung CodeDiff khi muon review diff kieu VSCode, ro tung ky tu thay doi.
 - Dung conflict keymap khi merge conflict.
 
 Luu y:
-- Co the co overlap giua git-blame va git-conflict o <leader>gt/<leader>gb tuy plugin nao dang active.
+- Blame inline hien tai dung gitsigns.nvim, khong dung git-blame.nvim rieng.
 - Neu thay keymap hanh xu la, chay <leader>fk va tim keymap do.
 
 
@@ -466,6 +510,8 @@ Database:
 - <leader>Dt   Toggle DBUI.
 - <leader>Da   Add DB connection.
 - <leader>Df   Find DB buffer.
+- <leader>Ds   Open SQLit TUI in a floating terminal.
+- <leader>Dm   Open SQLit mock SQLite demo.
 
 Dung khi:
 - Can query PostgreSQL/MySQL/SQLite tu Neovim.
@@ -534,10 +580,11 @@ Rust:
 - Crate support: crates.nvim.
 
 JavaScript/TypeScript/React:
-- LSP: typescript-tools.
+- LSP: vtsls.
 - Tailwind/CSS support thong qua LSP va completion.
 - Format/lint thong qua conform/nvim-lint/LSP tuy project.
-- Dung <leader>la cho organize import/quick fix.
+- Dung <leader>la cho Lspsaga organize import/quick fix.
+- Dung <leader>lA neu muon native LSP code action.
 - Dung <leader>lr de rename.
 - Dung <leader>fw de grep component/hook/function trong monorepo.
 
@@ -750,7 +797,7 @@ PHAN 21: 20 KEYMAP NEN DUNG HANG NGAY
 5.  K            Xem doc/type.
 6.  Gd           Go to definition.
 7.  gr           Find references.
-8.  <leader>la   Code action.
+8.  <leader>la   Lspsaga code action.
 9.  <leader>lr   Rename.
 10. <leader>lf   Format.
 11. <leader>lj   Next diagnostic.
@@ -807,7 +854,7 @@ PHAN 24: CHECKLIST KHI COMPLETION/TAB KHONG CHAY
 ------------------------------------------------
 
 - Dang o Insert mode chua.
-- Completion menu co hien khong: <C-Space>.
+- Completion menu co hien khong: <C-Space>, <M-;>, hoac <M-c>.
 - Neu menu hien, dung <C-n>/<C-p> de chon item roi <Tab>.
 - Neu la AI ghost text, dung <A-f> thay vi <Tab>.
 - Neu snippet dang active, <Tab>/<S-Tab> se nhay placeholder.
@@ -826,7 +873,7 @@ Mot workflow tot thuong la:
 4. Gd/gr/K de hieu code.
 5. Sua bang textobjects: ciw, ci", dat, vaf.
 6. Dung completion/snippet de code nhanh.
-7. <leader>la cho quick fix/import.
+7. <leader>la cho quick fix/import qua Lspsaga, hoac <leader>lA cho native LSP.
 8. <leader>lf format.
 9. <leader>xr hoac <leader>xf chay test.
 10. <leader>hp review hunk.
@@ -835,3 +882,32 @@ Mot workflow tot thuong la:
 
 Neu giu duoc vong lap nay, Neovim se khong chi la editor ma la IDE thuc dung:
 nhanh, it friction, va rat manh khi lam monorepo/fullstack/backend.
+
+
+PHAN 26: CAU TRUC CONFIG HIEN TAI
+---------------------------------
+
+Nguyen tac maintain config:
+
+- init.lua chi require cac module boot chinh.
+- lua/core/ chua hanh vi core cua editor: globals, env, options, filetype, autocmds, commands.
+- lua/config/ chua config chia se cho plugin/ecosystem: lazy.nvim, LSP helper, icons.
+- lua/plugins/ chua plugin specs, tach theo domain: ai, completion, dap, database, editor, git, langs, lsp, navigation, sessions, terminal, testing, ui, writing.
+- ftplugin/ chua setting va keymap rieng theo filetype.
+- snippets/ chua snippet tu chinh ban viet.
+
+Quy uoc vua refactor:
+
+- lua/core/options.lua la noi dat option core cua Neovim.
+- lua/core/autocmds.lua chi nen giu autocmd cross-filetype/cross-editor.
+- ftplugin/qf.lua quan ly quickfix window va phim q de close.
+- ftplugin/markdown.lua, text.lua, log.lua, gitcommit.lua quan ly wrap/spell.
+- ftplugin/OverseerList.lua quan ly UI cua OverseerList.
+
+Khi them config moi:
+
+- Neu la option cho moi file: lua/core/options.lua.
+- Neu la rule detect filetype: lua/core/filetype.lua truoc, chi dung ftdetect/ khi can Vimscript-style detection.
+- Neu la setting theo ngon ngu/filetype: ftplugin/<filetype>.lua.
+- Neu la plugin: lua/plugins/<domain>/<plugin>.lua.
+- Neu la helper dung lai nhieu noi: lua/core/utils.lua hoac tach ve lua/utils/ khi file bat dau lon.

@@ -63,8 +63,8 @@ return {
 	dependencies = {
 		"nvim-neotest/neotest-python",
 		-- "nvim-neotest/neotest-go", -- does not support monorepos where go.mod is not in root
-		-- "marilari88/neotest-vitest",
-		-- "nvim-neotest/neotest-jest",
+		"marilari88/neotest-vitest",
+		"nvim-neotest/neotest-jest",
 		-- "rouge8/neotest-rust",
 		-- "rcasia/neotest-java",
 		"orjangj/neotest-ctest",
@@ -93,31 +93,51 @@ return {
 			},
 		}, neotest_ns)
 
+		local adapters = {}
+
+		local function add_adapter(module, opts)
+			local ok, adapter = pcall(require, module)
+			if not ok then
+				return
+			end
+
+			if type(adapter) == "function" then
+				table.insert(adapters, adapter(opts or {}))
+			else
+				table.insert(adapters, adapter)
+			end
+		end
+
+		add_adapter("neotest-python", {
+			runner = "pytest",
+		})
+		add_adapter("neotest-golang")
+		add_adapter("neotest-ctest")
+		add_adapter("neotest-jest")
+		add_adapter("neotest-vitest")
+
 		require("neotest").setup({
-			adapters = {
-				require("neotest-python")({
-					runner = "pytest",
-				}),
-				require("neotest-golang"), -- Registration
-				require("neotest-ctest"),
-			},
+			adapters = adapters,
 		})
 
-		require("neotest-ctest").setup({
-			root = function(dir)
-				return require("neotest.lib").files.match_root_pattern(
-					"CMakePresets.json",
-					"compile_commands.json",
-					".clangd",
-					".clang-format",
-					".clang-tidy",
-					"build",
-					"out",
-					".git"
-				)(dir)
-			end,
-			frameworks = { "gtest", "catch2", "doctest" },
-			extra_args = {},
-		})
+		local ok_ctest, neotest_ctest = pcall(require, "neotest-ctest")
+		if ok_ctest then
+			neotest_ctest.setup({
+				root = function(dir)
+					return require("neotest.lib").files.match_root_pattern(
+						"CMakePresets.json",
+						"compile_commands.json",
+						".clangd",
+						".clang-format",
+						".clang-tidy",
+						"build",
+						"out",
+						".git"
+					)(dir)
+				end,
+				frameworks = { "gtest", "catch2", "doctest" },
+				extra_args = {},
+			})
+		end
 	end,
 }

@@ -5,14 +5,13 @@ return {
 	{
 		"saghen/blink.cmp",
 		enabled = true,
-		-- optional: provides snippets for the snippet source
-		-- use a release tag to download pre-built binaries
 		version = "1.*",
-		-- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-		-- build = 'cargo build --release',
-		-- If you use nix, you can build from source using latest nightly rust with:
-		-- build = 'nix run .#build-plugin',
+		event = { "InsertEnter", "CmdlineEnter" },
 		init = function()
+			if vim.g.toggle_blink == nil then
+				vim.g.toggle_blink = true
+			end
+
 			vim.keymap.set("n", "<leader>oa", function()
 				vim.g.toggle_blink = not vim.g.toggle_blink
 				if vim.g.toggle_blink then
@@ -26,6 +25,10 @@ return {
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
+			appearance = {
+				use_nvim_cmp_as_default = false,
+				nerd_font_variant = "mono",
+			},
 			keymap = {
 				preset = "super-tab",
 				["<C-space>"] = {
@@ -33,10 +36,20 @@ return {
 					"show_documentation",
 					"hide_documentation",
 				},
-				["<M-;>"] = {
-					"show",
-					"show_documentation",
-					"hide_documentation",
+					["<M-;>"] = {
+						"show",
+						"show_documentation",
+						"hide_documentation",
+					},
+					["<M-c>"] = {
+						"show",
+						"show_documentation",
+						"hide_documentation",
+					},
+					["<C-e>"] = {
+						"cancel",
+						"hide",
+					"fallback",
 				},
 				["<Tab>"] = {
 					function(cmp)
@@ -79,23 +92,66 @@ return {
 					"fallback",
 				},
 			},
-			-- Use this solution for now.
 			enabled = function()
-				return not vim.tbl_contains({ "DressingInput", "sagarename" }, vim.bo.filetype) and vim.g.toggle_blink
+				return not vim.tbl_contains({ "DressingInput", "sagarename" }, vim.bo.filetype)
+					and vim.g.toggle_blink ~= false
 			end,
+			completion = {
+				accept = {
+					auto_brackets = {
+						enabled = true,
+					},
+				},
+				trigger = {
+					prefetch_on_insert = true,
+					show_on_keyword = true,
+					show_on_trigger_character = true,
+					show_on_insert = true,
+					show_on_insert_on_trigger_character = true,
+					show_on_backspace = true,
+					show_on_backspace_in_keyword = true,
+				},
+				menu = {
+					border = "rounded",
+					auto_show = true,
+					auto_show_delay_ms = 0,
+					draw = {
+						columns = {
+							{ "kind_icon" },
+							{ "label", "label_description", gap = 1 },
+							{ "kind" },
+						},
+					},
+				},
+				list = {
+					selection = {
+						preselect = true,
+						auto_insert = false,
+					},
+				},
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 250,
+					treesitter_highlighting = true,
+					window = {
+						border = "rounded",
+					},
+				},
+				ghost_text = {
+					enabled = true,
+					show_with_menu = true,
+					show_without_menu = true,
+				},
+			},
 			cmdline = {
 				completion = {
 					menu = {
-						auto_show = function(ctx)
+						auto_show = function()
 							return vim.fn.getcmdtype() == ":"
-							-- enable for inputs as well, with:
-							-- or vim.fn.getcmdtype() == '@'
 						end,
 					},
 				},
 			},
-			-- Default list of enabled providers defined so that you can extend it
-			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
 				default = { "ecolog", "lazydev", "lsp", "path", "snippets", "buffer" },
 				per_filetype = {
@@ -104,8 +160,27 @@ return {
 					plsql = { "snippets", "dadbod", "buffer" },
 				},
 				providers = {
-					ecolog = { name = "ecolog", module = "ecolog.integrations.cmp.blink_cmp" },
-					dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+					lsp = {
+						min_keyword_length = 1,
+					},
+					path = {
+						min_keyword_length = 0,
+					},
+					snippets = {
+						min_keyword_length = 1,
+					},
+					buffer = {
+						min_keyword_length = 0,
+						max_items = 12,
+					},
+					ecolog = {
+						name = "ecolog",
+						module = "ecolog.integrations.cmp.blink_cmp",
+					},
+					dadbod = {
+						name = "Dadbod",
+						module = "vim_dadbod_completion.blink",
+					},
 					avante = {
 						module = "blink-cmp-avante",
 						name = "Avante",
@@ -114,18 +189,13 @@ return {
 					lazydev = {
 						name = "LazyDev",
 						module = "lazydev.integrations.blink",
-						-- make lazydev completions top priority (see `:h blink.cmp`)
 						score_offset = 100,
 					},
 				},
 			},
-
-			-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
-			-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
-			-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
-			--
-			-- See the fuzzy documentation for more information
-			fuzzy = { implementation = "prefer_rust_with_warning" },
+			fuzzy = {
+				implementation = "prefer_rust_with_warning",
+			},
 		},
 		opts_extend = { "sources.default" },
 		dependencies = {
@@ -140,6 +210,7 @@ return {
 					luasnip.filetype_extend("svelte", { "html" })
 					luasnip.filetype_extend("javascript", { "javascriptreact" })
 					luasnip.filetype_extend("typescript", { "typescriptreact" })
+
 					local vscode_loader = require("luasnip.loaders.from_vscode")
 					vscode_loader.lazy_load()
 					vscode_loader.load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })

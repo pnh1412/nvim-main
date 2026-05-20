@@ -3,6 +3,12 @@ Generated from lazy-lock.json
 Date: 2026-05-19
 Total plugins: 98
 
+Recent config/keymap notes
+- <leader>la is reserved for Lspsaga code action UI.
+- <leader>lA calls native vim.lsp.buf.code_action.
+- blink.cmp manual completion fallback keys: <C-Space>, <M-;>, <M-c>.
+- Filetype-local UI/options were moved from lua/core/autocmds.lua into ftplugin/.
+
 Core / plugin manager
 - lazy.nvim
 
@@ -109,7 +115,7 @@ Debugging / testing
 - neotest-ctest
 
 Language specific
-- typescript-tools.nvim
+- vtsls
 - clangd_extensions.nvim
 - rustaceanvim
 - crates.nvim
@@ -253,7 +259,7 @@ Alphabetical raw list
 - tree-sitter-norg
 - tree-sitter-norg-meta
 - trouble.nvim
-- typescript-tools.nvim
+- vtsls
 - venv-selector.nvim
 - vim-dadbod
 - vim-dadbod-completion

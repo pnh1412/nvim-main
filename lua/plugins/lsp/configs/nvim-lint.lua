@@ -11,12 +11,23 @@ return {
 	},
 	config = function()
 		local lint = require("lint")
+		local function available(...)
+			local linters = {}
+
+			for _, linter in ipairs({ ... }) do
+				if vim.fn.executable(linter) == 1 then
+					table.insert(linters, linter)
+				end
+			end
+
+			return linters
+		end
 
 		lint.linters_by_ft = {
-			javascript = { "eslint_d" },
-			javascriptreact = { "eslint_d" },
-			typescript = { "eslint_d" },
-			typescriptreact = { "eslint_d" },
+			javascript = available("quick-lint-js", "typos", "eslint_d"),
+			javascriptreact = available("quick-lint-js", "typos", "eslint_d"),
+			typescript = available("typos", "eslint_d"),
+			typescriptreact = available("typos", "eslint_d"),
 			go = { "golangcilint" },
 			dockerfile = { "hadolint" },
 			sh = { "shellcheck" },

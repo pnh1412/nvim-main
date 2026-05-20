@@ -19,10 +19,6 @@ return {
 	end,
 	dependencies = {
 		"JavaHello/spring-boot.nvim",
-		"nvim-java/lua-async-await",
-		"nvim-java/nvim-java-core",
-		"nvim-java/nvim-java-test",
-		"nvim-java/nvim-java-dap",
 		"MunifTanjim/nui.nvim",
 		"neovim/nvim-lspconfig",
 		"mfussenegger/nvim-dap",
@@ -39,6 +35,9 @@ return {
 	ft = { "java" },
 	config = function()
 		require("java").setup({
+			jdk = {
+				auto_install = true,
+			},
 			spring_boot_tools = {
 				enable = true,
 			},

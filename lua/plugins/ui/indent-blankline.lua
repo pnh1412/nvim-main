@@ -39,42 +39,6 @@ return {
 		end,
 	},
 	{
-		-- Add indentation guides even on blank lines
-		"lukas-reineke/indent-blankline.nvim",
-		-- See `:help ibl`
-		event = { "BufReadPre", "BufNewFile" },
-		main = "ibl",
-		config = function(_)
-			local hooks = require("ibl.hooks")
-			hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
-			local exclude_ft = {
-				"help",
-				"git",
-				"markdown",
-				"snippets",
-				"text",
-				"gitconfig",
-				"alpha",
-				"dashboard",
-				"neo-tree",
-				"lspinfo",
-				"mason",
-				"lazy",
-			}
-			require("ibl").setup({
-				enabled = true,
-				scope = { show_exact_scope = true, highlight = { "Function", "Label" } },
-				indent = {
-					char = "│",
-				},
-				exclude = {
-					filetypes = exclude_ft,
-					buftypes = { "terminal" },
-				},
-			})
-		end,
-	},
-	{
 		"echasnovski/mini.indentscope",
 		enabled = false,
 		event = "VeryLazy",

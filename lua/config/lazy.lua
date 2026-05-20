@@ -66,6 +66,6 @@ require("lazy").setup({
 		border = { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" },
 	},
 	checker = {
-		enabled = true,
+		enabled = false,
 	},
 })

@@ -2,7 +2,13 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		lazy = false,
+		event = { "BufReadPost", "BufNewFile" },
+		cmd = {
+			"TSInstall",
+			"TSInstallConfigured",
+			"TSUpdate",
+			"TSUninstall",
+		},
 		build = ":TSUpdate",
 		config = function()
 			local ensure_installed = {
@@ -42,22 +48,32 @@ return {
 				require("nvim-treesitter").install(ensure_installed)
 			end, { desc = "Install configured Treesitter parsers" })
 
+			local function start_treesitter(bufnr)
+				if not vim.api.nvim_buf_is_valid(bufnr) or vim.bo[bufnr].filetype == "" then
+					return
+				end
+
+				local file = vim.api.nvim_buf_get_name(bufnr)
+				local ok, stats = pcall(vim.uv.fs_stat, file)
+				if ok and stats and stats.size > 100 * 1024 then
+					return
+				end
+
+				pcall(vim.treesitter.start, bufnr)
+
+				if not vim.tbl_contains({ "python", "yaml" }, vim.bo[bufnr].filetype) then
+					vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end
+			end
+
 			vim.api.nvim_create_autocmd("FileType", {
 				group = vim.api.nvim_create_augroup("TreesitterStart", { clear = true }),
 				callback = function(args)
-					local file = vim.api.nvim_buf_get_name(args.buf)
-					local ok, stats = pcall(vim.uv.fs_stat, file)
-					if ok and stats and stats.size > 100 * 1024 then
-						return
-					end
-
-					pcall(vim.treesitter.start, args.buf)
-
-					if not vim.tbl_contains({ "python", "yaml" }, vim.bo[args.buf].filetype) then
-						vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-					end
+					start_treesitter(args.buf)
 				end,
 			})
+
+			start_treesitter(vim.api.nvim_get_current_buf())
 		end,
 	},
 

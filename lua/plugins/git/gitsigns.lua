@@ -21,7 +21,7 @@ return {
       follow_files = true,
     },
     attach_to_untracked = true,
-    current_line_blame = false,
+    current_line_blame = true,
     current_line_blame_opts = {
       virt_text = true,
       virt_text_pos = "eol",
@@ -41,8 +41,10 @@ return {
     on_attach = function(buffer)
       local gs = package.loaded.gitsigns
 
-      local function map(mode, l, r, desc)
-        vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+      local function map(mode, l, r, opts)
+        opts = type(opts) == "table" and opts or { desc = opts }
+        opts.buffer = buffer
+        vim.keymap.set(mode, l, r, opts)
       end
 
       -- Navigation
@@ -82,6 +84,7 @@ return {
       map("n", "<leader>hb", function()
         gs.blame_line({ full = false })
       end, "Blame Line")
+      map("n", "<leader>hB", gs.toggle_current_line_blame, "Toggle Current Line Blame")
       map("n", "<leader>hd", gs.diffthis, "Diff This")
       map("n", "<leader>hD", function()
         gs.diffthis("~")
