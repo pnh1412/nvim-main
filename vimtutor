@@ -711,6 +711,32 @@ Khi nao dung:
 - Muon dong Neovim nhung hom sau quay lai dung layout.
 
 
+PHAN 18B: NODE PACKAGE.JSON WORKFLOW
+------------------------------------
+
+package-info.nvim chi nen dung khi dang mo package.json.
+
+Keymap:
+- <leader>npS  Show dependency versions.
+- <leader>npf  Force refresh dependency versions.
+- <leader>nph  Hide dependency versions.
+- <leader>npt  Toggle dependency versions.
+- <leader>npu  Update dependency under cursor.
+- <leader>npd  Delete dependency under cursor.
+- <leader>npc  Change dependency version.
+- <leader>npi  Install a new dependency.
+
+Khi nao dung:
+- React/Next/Nest/Node project co package.json.
+- Check dependency nao outdated.
+- Update/delete dependency ma khong muon roi editor.
+
+Luu y:
+- Prefix <leader>np nam duoi nhom Neovim -> Package trong which-key.
+- Plugin lazy-load theo JSON/package.json workflow, khong can load khi mo file code thuong.
+- nvim-ts-autotag tu dong close/rename tag cho HTML, JSX, TSX, Vue, Svelte, XML; khong co keymap rieng.
+
+
 PHAN 19: KIEM TRA SAI KEYMAP / DEBUG CONFIG
 -------------------------------------------
 
@@ -903,6 +929,8 @@ Quy uoc vua refactor:
 - ftplugin/qf.lua quan ly quickfix window va phim q de close.
 - ftplugin/markdown.lua, text.lua, log.lua, gitcommit.lua quan ly wrap/spell.
 - ftplugin/OverseerList.lua quan ly UI cua OverseerList.
+- Dashboard alpha-nvim load bang VimEnter, khong con nam trong nhom startup plugin.
+- tree-sitter-norg va tree-sitter-norg-meta chi load khi dung Neorg/.norg.
 
 Khi them config moi:
 
@@ -911,3 +939,33 @@ Khi them config moi:
 - Neu la setting theo ngon ngu/filetype: ftplugin/<filetype>.lua.
 - Neu la plugin: lua/plugins/<domain>/<plugin>.lua.
 - Neu la helper dung lai nhieu noi: lua/core/utils.lua hoac tach ve lua/utils/ khi file bat dau lon.
+
+
+PHAN 27: INSTALLER / BOOTSTRAP MAY MOI
+--------------------------------------
+
+Config co thu muc installer/ de bootstrap moi truong moi, dac biet la Termux
+tren Android tablet.
+
+Lenh Termux:
+- bash installer/install-termux.sh --dry-run
+- bash installer/install-termux.sh
+- bash installer/install-termux.sh --optional
+
+Lenh Ubuntu/Debian:
+- bash installer/install-linux.sh --dry-run
+- bash installer/install-linux.sh
+
+Healthcheck:
+- bash installer/healthcheck.sh
+
+Sau khi cai system packages:
+1. Mo nvim.
+2. Chay :Lazy sync.
+3. Chay :MasonToolsInstall.
+4. Chay :TSInstallConfigured.
+5. Chay :checkhealth.
+
+Installer chi cai system packages nhu git, node, python, Java, Go, ripgrep,
+fd/fdfind, fzf, lazygit, sqlite, build tools. LSP/formatter/linter van de
+Mason quan ly de dung voi config hien tai.

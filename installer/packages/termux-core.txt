@@ -1,0 +1,42 @@
+# Core shell/editor/build
+git
+neovim
+curl
+wget
+openssh
+tmux
+termux-tools
+coreutils
+findutils
+which
+less
+tree
+unzip
+zip
+tar
+gzip
+clang
+make
+cmake
+pkg-config
+
+# Search and navigation
+ripgrep
+fd
+fzf
+
+# Languages
+nodejs-lts
+python
+golang
+rust
+
+# Git / database / utilities
+lazygit
+sqlite
+postgresql
+mariadb
+jq
+bat
+eza
+

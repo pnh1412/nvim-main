@@ -1,0 +1,10 @@
+# Nice to have on Android/Termux
+termux-api
+zoxide
+htop
+btop
+proot-distro
+lua-language-server
+shellcheck
+shfmt
+

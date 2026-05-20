@@ -36,6 +36,7 @@ return {
 					{ "<leader>M", group = "Match Replace", icon = "󰛔" },
 					{ "<leader>m", group = "Markdown", icon = "" },
 					{ "<leader>n", group = "Neovim", icon = "" },
+					{ "<leader>np", group = "Package", icon = "" },
 					{ "<leader>o", group = "Options", icon = "" },
 					{ "<leader>p", group = "Plugins", icon = "" },
 					{ "<leader>r", group = "Runner", icon = "" },

@@ -1,0 +1,7 @@
+# Nice to have on Linux
+zoxide
+htop
+btop
+shellcheck
+shfmt
+luarocks

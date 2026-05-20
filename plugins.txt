@@ -1,13 +1,17 @@
 Neovim plugin inventory
 Generated from lazy-lock.json
-Date: 2026-05-19
-Total plugins: 98
+Date: 2026-05-20
+Total plugins: 100
 
 Recent config/keymap notes
 - <leader>la is reserved for Lspsaga code action UI.
 - <leader>lA calls native vim.lsp.buf.code_action.
 - blink.cmp manual completion fallback keys: <C-Space>, <M-;>, <M-c>.
 - Filetype-local UI/options were moved from lua/core/autocmds.lua into ftplugin/.
+- alpha-nvim loads on VimEnter instead of startup.
+- tree-sitter-norg and tree-sitter-norg-meta lazy-load with Neorg/norg files.
+- nvim-ts-autotag lazy-loads only for HTML/JSX/TSX/Vue/Svelte/XML style buffers.
+- package-info.nvim lazy-loads for package.json workflows under <leader>np.
 
 Core / plugin manager
 - lazy.nvim
@@ -37,6 +41,7 @@ Treesitter / syntax / code structure
 - nvim-treesitter
 - nvim-treesitter-context
 - nvim-treesitter-textobjects
+- nvim-ts-autotag
 - tree-sitter-norg
 - tree-sitter-norg-meta
 - aerial.nvim
@@ -133,6 +138,7 @@ Database / API / environment
 - vim-dadbod-completion
 - kulala.nvim
 - liveserver.nvim
+- package-info.nvim
 - ecolog.nvim
 
 AI assisted coding
@@ -226,6 +232,7 @@ Alphabetical raw list
 - nvim-nio
 - nvim-notify
 - nvim-tinygit
+- nvim-ts-autotag
 - nvim-treesitter
 - nvim-treesitter-context
 - nvim-treesitter-textobjects
@@ -235,6 +242,7 @@ Alphabetical raw list
 - oil.nvim
 - opencode.nvim
 - overseer.nvim
+- package-info.nvim
 - pathlib.nvim
 - plenary.nvim
 - project.nvim
