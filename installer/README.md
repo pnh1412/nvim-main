@@ -15,6 +15,7 @@ Install Termux from F-Droid or GitHub, not the old Google Play build.
 cd ~/.config/nvim
 bash installer/install-termux.sh --dry-run
 bash installer/install-termux.sh
+bash installer/install-nerd-font-termux.sh
 ```
 
 After packages are installed:
@@ -56,11 +57,39 @@ bash installer/install-ubuntu-proot.sh
 This wrapper runs the apt installer without `sudo`, which matches the default
 root shell used by `proot-distro login ubuntu`.
 
+Install the Nerd Font on the Termux host, not inside Ubuntu proot:
+
+```sh
+exit
+cd ~/.config/nvim
+bash installer/install-nerd-font-termux.sh
+proot-distro login ubuntu
+```
+
 ## Health Check
 
 ```sh
 bash installer/healthcheck.sh
 ```
+
+## Nerd Font
+
+Termux reads its terminal font from:
+
+```text
+~/.termux/font.ttf
+```
+
+Use:
+
+```sh
+bash installer/install-nerd-font-termux.sh
+```
+
+The script downloads the latest JetBrainsMono Nerd Font zip, copies a regular
+TTF to `~/.termux/font.ttf`, and runs `termux-reload-settings` when available.
+For Ubuntu in Termux/proot, run this script from the Termux host because the
+visible terminal font belongs to the Android Termux app.
 
 The healthcheck reports missing executables used by this config, such as
 `git`, `nvim`, `node`, `npm`, `python3`, `java`, `go`, `rg`, `fd`, `fzf`,

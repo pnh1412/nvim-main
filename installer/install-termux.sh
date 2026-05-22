@@ -16,6 +16,7 @@ Options:
   -h, --help      Show help.
 
 After this script:
+  bash installer/install-nerd-font-termux.sh
   nvim
   :Lazy sync
   :MasonToolsInstall

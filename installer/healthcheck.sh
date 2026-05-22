@@ -71,6 +71,18 @@ check_any "dlv/delve" "Go DAP debugger" dlv delve
 check tree-sitter "Treesitter CLI"
 
 echo
+echo "==> Termux UI"
+if [ -n "${TERMUX_VERSION:-}" ] || [ -d "$HOME/.termux" ]; then
+  if [ -f "$HOME/.termux/font.ttf" ]; then
+    printf '[ok]      %-18s %s\n' "font.ttf" "Termux Nerd Font slot"
+  else
+    printf '[missing] %-18s %s\n' "font.ttf" "run installer/install-nerd-font-termux.sh on the Termux host"
+  fi
+else
+  printf '[skip]    %-18s %s\n' "font.ttf" "not running in Termux"
+fi
+
+echo
 if [ "$missing" -eq 0 ]; then
   echo "All checked executables are available."
 else

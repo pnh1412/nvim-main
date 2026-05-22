@@ -954,6 +954,7 @@ Lenh Termux:
 - bash installer/install-termux.sh --dry-run
 - bash installer/install-termux.sh
 - bash installer/install-termux.sh --optional
+- bash installer/install-nerd-font-termux.sh
 
 Lenh Ubuntu/Debian:
 - bash installer/install-linux.sh --dry-run
@@ -976,3 +977,7 @@ Sau khi cai system packages:
 Installer chi cai system packages nhu git, node, python, Java, Go, ripgrep,
 fd/fdfind, fzf, lazygit, sqlite, build tools. LSP/formatter/linter van de
 Mason quan ly de dung voi config hien tai.
+
+Nerd Font tren Android/Termux:
+- Font hien thi icon cua Neovim nam o Termux host: ~/.termux/font.ttf.
+- Neu dung Ubuntu proot, van phai cai font o Termux host, khong phai trong Ubuntu.
