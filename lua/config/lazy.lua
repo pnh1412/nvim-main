@@ -29,6 +29,17 @@ require("lazy").setup({
 		lazy = true,
 		version = false,
 	},
+	local_spec = false,
+	pkg = {
+		enabled = false,
+	},
+	rocks = {
+		enabled = false,
+	},
+	change_detection = {
+		enabled = false,
+		notify = false,
+	},
 	performance = {
 		rtp = {
 			disabled_plugins = {
@@ -38,20 +49,20 @@ require("lazy").setup({
 				"getscriptPlugin",
 				"gzip",
 				"logipat",
+				"matchit",
 				"netrw",
 				"netrwPlugin",
 				"netrwSettings",
 				"netrwFileHandlers",
-				-- "matchit",
 				"tar",
 				"tarPlugin",
 				"rrhelper",
 				"spellfile_plugin",
+				"tutor",
 				"vimball",
 				"vimballPlugin",
 				"zip",
 				"zipPlugin",
-				-- "tutor",
 				"rplugin",
 				"syntax",
 				"synmenu",

@@ -931,6 +931,9 @@ Quy uoc vua refactor:
 - ftplugin/OverseerList.lua quan ly UI cua OverseerList.
 - Dashboard alpha-nvim load bang VimEnter, khong con nam trong nhom startup plugin.
 - tree-sitter-norg va tree-sitter-norg-meta chi load khi dung Neorg/.norg.
+- Catppuccin tat default_integrations va chi bat integration dang dung hang ngay de giam startup cost.
+- lazy.nvim tat pkg scan, rocks scan, local .lazy.lua spec va change detection de giam spec-evaluation cost.
+- GraphQL LSP chi attach vao file .graphql/.gql va project co graphql config/schema, tranh chay trong moi file JS/TSX.
 
 Khi them config moi:
 
@@ -955,6 +958,10 @@ Lenh Termux:
 Lenh Ubuntu/Debian:
 - bash installer/install-linux.sh --dry-run
 - bash installer/install-linux.sh
+
+Lenh Ubuntu trong Termux/proot-distro:
+- bash installer/install-ubuntu-proot.sh --dry-run
+- bash installer/install-ubuntu-proot.sh
 
 Healthcheck:
 - bash installer/healthcheck.sh

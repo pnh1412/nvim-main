@@ -12,6 +12,9 @@ Recent config/keymap notes
 - tree-sitter-norg and tree-sitter-norg-meta lazy-load with Neorg/norg files.
 - nvim-ts-autotag lazy-loads only for HTML/JSX/TSX/Vue/Svelte/XML style buffers.
 - package-info.nvim lazy-loads for package.json workflows under <leader>np.
+- catppuccin default_integrations is disabled; only daily-use integrations are enabled.
+- lazy.nvim package/rocks/local-spec/change-detection scans are disabled for faster startup.
+- GraphQL LSP is restricted to .graphql/.gql buffers and GraphQL-specific root markers.
 
 Core / plugin manager
 - lazy.nvim

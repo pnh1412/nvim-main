@@ -2,10 +2,6 @@ return {
 	filetypes = {
 		"graphql",
 		"gql",
-		"javascript",
-		"javascriptreact",
-		"typescript",
-		"typescriptreact",
 	},
 	root_markers = {
 		"graphql.config.js",
@@ -18,7 +14,7 @@ return {
 		".graphqlrc.cjs",
 		".graphqlrc.yml",
 		".graphqlrc.yaml",
-		"package.json",
-		".git",
+		"schema.graphql",
+		"schema.gql",
 	},
 }

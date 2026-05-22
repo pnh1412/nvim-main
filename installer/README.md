@@ -35,6 +35,27 @@ bash installer/install-linux.sh --dry-run
 bash installer/install-linux.sh
 ```
 
+## Quick Start: Ubuntu In Termux / proot-distro
+
+On the Termux host, install `proot-distro` first:
+
+```sh
+pkg install proot-distro
+proot-distro install ubuntu
+proot-distro login ubuntu
+```
+
+Inside Ubuntu:
+
+```sh
+cd ~/.config/nvim
+bash installer/install-ubuntu-proot.sh --dry-run
+bash installer/install-ubuntu-proot.sh
+```
+
+This wrapper runs the apt installer without `sudo`, which matches the default
+root shell used by `proot-distro login ubuntu`.
+
 ## Health Check
 
 ```sh
@@ -74,6 +95,8 @@ Linux apt packages are listed in:
   `openjdk-21` first, then falls back to `openjdk-17`.
 - On Ubuntu/Debian, `fd-find` may expose the binary as `fdfind`. Install or
   symlink `fd` manually if a tool specifically requires the `fd` executable.
+- `install-linux.sh` now creates `fd -> fdfind` and `bat -> batcat` aliases
+  when needed.
 - Some Mason tools may not ship binaries for Android. If one Mason package
   fails, keep the system dependency installed and use project-local tools
   through npm/pnpm/go/pip where possible.

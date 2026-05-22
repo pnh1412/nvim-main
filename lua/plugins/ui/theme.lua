@@ -158,6 +158,7 @@ return {
         no_italic = false,
         term_colors = true,
         transparent_background = false,
+        default_integrations = false,
         styles = {
           comments = { "italic" },
           conditionals = { "italic" },
@@ -172,9 +173,13 @@ return {
           types = { "italic" },
         },
         integrations = {
-          cmp = true,
+          blink_cmp = {
+            enabled = true,
+            style = "bordered",
+          },
           markdown = true,
           mason = true,
+          gitsigns = true,
           mini = { enabled = true },
           native_lsp = {
             enabled = true,
@@ -201,6 +206,7 @@ return {
           },
           treesitter = true,
           treesitter_context = true,
+          neotree = true,
         },
         highlight_overrides = {
           all = function(colors)
