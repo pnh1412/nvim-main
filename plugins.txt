@@ -4,6 +4,8 @@ Date: 2026-05-20
 Total plugins: 100
 
 Recent config/keymap notes
+- Insert mode `jk` exits to Normal mode, defined in lua/core/keymaps.lua.
+- Global keymaps live in lua/core/keymaps.lua: <leader>y yank all, <leader>bR remove all, <leader>ce execute code, <leader>uC colorschemes, <C-Up/Down/Left/Right> resize windows.
 - <leader>la is reserved for Lspsaga code action UI.
 - <leader>lA calls native vim.lsp.buf.code_action.
 - blink.cmp manual completion fallback keys: <C-Space>, <M-;>, <M-c>.

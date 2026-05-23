@@ -24,6 +24,8 @@ return {
 				{
 					{ "<leader>s", group = "Sessions", icon = "󰔚" },
 					{ "<leader>a", group = "AI", icon = "" },
+					{ "<leader>b", group = "Buffer", icon = "󰈙" },
+					{ "<leader>c", group = "Code", icon = "" },
 					{ "<leader>d", group = "Debugging", icon = "" },
 					{ "<leader>D", group = "Database", icon = "󰆼" },
 					{ "<leader>f", group = "Find", icon = "" },
@@ -42,6 +44,7 @@ return {
 					{ "<leader>r", group = "Runner", icon = "" },
 					{ "<leader>t", group = "Terminal", icon = "" },
 					{ "<leader>T", group = "Trouble", icon = "" },
+					{ "<leader>u", group = "UI", icon = "" },
 					{ "<leader>v", group = "Venv", icon = "" },
 					{ "<leader>w", group = "Web", icon = "󰖟" },
 					{ "<leader>x", group = "Tests", icon = "󰙨" },

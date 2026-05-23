@@ -15,6 +15,8 @@ Quy uoc:
 - Insert mode la che do go chu.
 - Visual mode la che do chon vung.
 - Command mode la che do go lenh bat dau bang :.
+- Trong Insert mode, bam jk de thoat ve Normal mode nhu Esc.
+- Global keymap rieng cua ban nam trong lua/core/keymaps.lua.
 
 
 PHAN 1: TU DUY VIM/NEOVIM
@@ -30,7 +32,7 @@ Neovim khong giong editor thong thuong. Ban lam viec bang cac che do:
 
 Nguyen tac quan trong:
 - O Normal mode cang nhieu cang tot.
-- Vao Insert mode de go, xong bam Esc de quay lai Normal.
+- Vao Insert mode de go, xong bam Esc hoac jk de quay lai Normal.
 - Ket hop operator + motion: d + w = xoa den tu tiep theo, c + i + w = doi ca tu.
 - Dung text object de sua code nhanh: ci", ci), ci}, diw, yiw.
 
@@ -44,6 +46,8 @@ Thoat va luu:
 - :wq      Luu va thoat.
 - :q!      Thoat khong luu.
 - :qa      Thoat tat ca.
+- <leader>y   Copy toan bo file vao system clipboard.
+- <leader>bR  Xoa toan bo noi dung buffer hien tai.
 
 Di chuyen co ban:
 - h        Trai.
@@ -836,6 +840,17 @@ PHAN 21: 20 KEYMAP NEN DUNG HANG NGAY
 18. <leader>dc   Start/continue debug.
 19. <leader>tF   Toggle floating terminal.
 20. <A-f>        Accept AI suggestion.
+
+Keymap global bo sung:
+- jk           Trong Insert mode, thoat ve Normal mode.
+- <leader>y   Yank/copy toan bo file.
+- <leader>bR  Remove all text trong buffer.
+- <leader>ce  Execute file hien tai bang runner trong core.utils.
+- <leader>uC  Mo theme picker.
+- <C-Up>     Tang chieu cao window.
+- <C-Down>   Giam chieu cao window.
+- <C-Left>   Giam chieu rong window.
+- <C-Right>  Tang chieu rong window.
 
 
 PHAN 22: KHI NAO DUNG PLUGIN NAO
