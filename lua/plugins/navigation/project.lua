@@ -4,6 +4,20 @@ return {
   "ahmedkhalf/project.nvim",
   event = "VeryLazy",
   config = function(_, opts)
+    -- project.nvim still calls the deprecated/removed vim.lsp.buf_get_clients().
+    -- Keep the plugin working on newer Neovim by routing that legacy API to
+    -- vim.lsp.get_clients({ bufnr = ... }) without patching files in lazy/.
+    vim.lsp.buf_get_clients = function(bufnr)
+      local clients = vim.lsp.get_clients({ bufnr = bufnr or 0 })
+      local by_id = {}
+
+      for _, client in ipairs(clients) do
+        by_id[client.id] = client
+      end
+
+      return by_id
+    end
+
     require("project_nvim").setup(opts)
   end,
   opts = {
