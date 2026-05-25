@@ -137,7 +137,9 @@ return {
 				section.footer,
 			},
 		}
-		dashboard.opts.opts.noautocmd = true
+		-- Let FileType/User autocmds run so dashboard buffers can be protected
+		-- from staying in Insert mode after closing side-panel UIs.
+		dashboard.opts.opts.noautocmd = false
 
 		-- close Lazy and re-open when the dashboard is ready
 		if vim.o.filetype == "lazy" then

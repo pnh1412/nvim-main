@@ -17,6 +17,17 @@ Recent config/keymap notes
 - catppuccin default_integrations is disabled; only daily-use integrations are enabled.
 - lazy.nvim package/rocks/local-spec/change-detection scans are disabled for faster startup.
 - GraphQL LSP is restricted to .graphql/.gql buffers and GraphQL-specific root markers.
+- opencode-tui.nvim is kept disabled because it conflicts with sudo-tee/opencode.nvim on require("opencode").
+- Aerial outline was moved from <leader>ao/<leader>aO to <leader>co/<leader>cO so <leader>a stays AI-only.
+- Opencode default <leader>ag toggle is disabled because <leader>aa is the canonical toggle key.
+- Opencode <leader>ai/<leader>aI/<leader>ao/<leader>ad are disabled to avoid duplicate side-panel open actions; use <leader>aa as the canonical toggle.
+- Opencode main <leader>a mappings are declared in lazy.nvim keys so the AI prefix exists before opencode.nvim finishes loading.
+- Opencode input height is fixed to avoid deferred dynamic-resize callbacks touching closed buffers.
+- Opencode window keymaps use current action names: <C-c> = cancel and <leader>aS = navigate_session_tree child picker.
+- Opencode Esc only leaves Insert/keeps Normal mode; close the AI UI with <leader>aq or toggle it with <leader>aa.
+- Leaving opencode/neo-tree/dashboard UI buffers forces Normal mode so <leader> mappings do not insert spaces after closing panels.
+- Opencode close/toggle mappings now use a wrapper that forces Normal mode after the plugin restores focus.
+- Dashboard buffers immediately leave insert mode; InsertCharPre blocks leaked insert text and replays dashboard keys through Normal mode.
 
 Core / plugin manager
 - lazy.nvim

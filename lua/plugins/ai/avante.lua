@@ -1,4 +1,3 @@
----@type NvPluginSpec
 -- NOTE: AI Chat
 return {
   "yetone/avante.nvim",

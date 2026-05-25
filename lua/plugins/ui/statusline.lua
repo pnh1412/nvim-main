@@ -134,7 +134,6 @@ return {
 
         local names = {}
         local excluded = {
-          ["copilot"] = true,
           ["null-ls"] = true,
         }
 

@@ -8,6 +8,58 @@ local augroup = vim.api.nvim_create_augroup
 -- General Settings
 local general = augroup("General", { clear = true })
 
+local function force_normal_mode()
+  local function stop()
+    local mode = vim.fn.mode()
+    if mode:sub(1, 1) == "i" or mode == "R" or mode == "t" then
+      local keys = vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true)
+      vim.api.nvim_feedkeys(keys, "nx", false)
+      pcall(vim.cmd, "stopinsert")
+    end
+  end
+
+  stop()
+  vim.schedule(stop)
+  vim.defer_fn(stop, 30)
+  vim.defer_fn(stop, 100)
+end
+
+local function feed_normal_key(lhs)
+  force_normal_mode()
+  vim.schedule(function()
+    local keys = vim.api.nvim_replace_termcodes(lhs, true, false, true)
+    vim.api.nvim_feedkeys(keys, "m", false)
+  end)
+end
+
+local function is_dashboard_buffer(bufnr)
+  if not vim.api.nvim_buf_is_valid(bufnr) then
+    return false
+  end
+
+  local ft = vim.bo[bufnr].filetype
+  if ft == "alpha" or ft == "dashboard" or ft == "starter" then
+    return true
+  end
+
+  if vim.b[bufnr].pnhau_dashboard_buffer then
+    return true
+  end
+
+  if vim.bo[bufnr].buftype ~= "nofile" then
+    return false
+  end
+
+  local ok, lines = pcall(vim.api.nvim_buf_get_lines, bufnr, 0, math.min(vim.api.nvim_buf_line_count(bufnr), 30), false)
+  if not ok then
+    return false
+  end
+
+  local text = table.concat(lines, "\n")
+  return text:find("Find Files", 1, true) ~= nil
+    or text:find("New file", 1, true) ~= nil
+end
+
 autocmd("VimEnter", {
   callback = function(data)
     -- buffer is a directory
@@ -68,6 +120,211 @@ autocmd("TermOpen", {
   end,
   group = general,
   desc = "Terminal Options",
+})
+
+autocmd({ "BufLeave", "WinLeave" }, {
+  pattern = "*",
+  callback = function(args)
+    local ft = vim.bo[args.buf].filetype
+    if
+      not vim.tbl_contains({ "opencode", "opencode_output", "opencode_footer", "neo-tree" }, ft)
+      and not is_dashboard_buffer(args.buf)
+    then
+      return
+    end
+
+    force_normal_mode()
+  end,
+  group = general,
+  desc = "Return to normal mode after leaving AI/explorer UI buffers",
+})
+
+local function protect_dashboard_buffer(bufnr)
+  if not vim.api.nvim_buf_is_valid(bufnr) then
+    return
+  end
+
+  vim.b[bufnr].pnhau_dashboard_buffer = true
+
+  local function mark_leader_pending()
+    vim.b[bufnr].pnhau_dashboard_leader_pending = true
+    vim.defer_fn(function()
+      if vim.api.nvim_buf_is_valid(bufnr) then
+        vim.b[bufnr].pnhau_dashboard_leader_pending = false
+      end
+    end, vim.o.timeoutlen + 100)
+  end
+
+  local replay_keys = { "<Space>", "[", "]", "/", "\\", ";", "'", ",", ".", "-", "=" }
+  for code = string.byte("a"), string.byte("z") do
+    replay_keys[#replay_keys + 1] = string.char(code)
+  end
+  for code = string.byte("A"), string.byte("Z") do
+    replay_keys[#replay_keys + 1] = string.char(code)
+  end
+  for code = string.byte("0"), string.byte("9") do
+    replay_keys[#replay_keys + 1] = string.char(code)
+  end
+
+  for _, lhs in ipairs(replay_keys) do
+    pcall(vim.keymap.set, "i", lhs, function()
+      if lhs == "<Space>" then
+        mark_leader_pending()
+        feed_normal_key(lhs)
+        return
+      end
+
+      if vim.b[bufnr].pnhau_dashboard_leader_pending then
+        vim.b[bufnr].pnhau_dashboard_leader_pending = false
+        feed_normal_key(lhs)
+        return
+      end
+
+      force_normal_mode()
+    end, {
+      buffer = bufnr,
+      desc = "Dashboard | Replay key in Normal mode",
+      silent = true,
+    })
+  end
+
+  for _, lhs in ipairs({ "a", "b", "d", "D", "g", "h", "H", "M", "m", "n", "r", "s", "u", "v", "w", "x" }) do
+    pcall(vim.keymap.set, "n", lhs, function()
+      if not vim.b[bufnr].pnhau_dashboard_leader_pending then
+        return
+      end
+
+      vim.b[bufnr].pnhau_dashboard_leader_pending = false
+      feed_normal_key(lhs)
+    end, {
+      buffer = bufnr,
+      desc = "Dashboard | Complete pending leader key",
+      silent = true,
+    })
+  end
+
+  vim.schedule(function()
+    if vim.api.nvim_get_current_buf() ~= bufnr then
+      return
+    end
+
+    force_normal_mode()
+  end)
+end
+
+autocmd({ "BufEnter", "WinEnter" }, {
+  pattern = "*",
+  callback = function(args)
+    if not is_dashboard_buffer(args.buf) then
+      return
+    end
+
+    protect_dashboard_buffer(args.buf)
+    force_normal_mode()
+  end,
+  group = general,
+  desc = "Keep dashboard buffers protected after redraw/focus changes",
+})
+
+autocmd("FileType", {
+  pattern = { "alpha", "dashboard" },
+  callback = function(args)
+    protect_dashboard_buffer(args.buf)
+  end,
+  group = general,
+  desc = "Protect dashboard from insert-mode text input",
+})
+
+autocmd("User", {
+  pattern = "AlphaReady",
+  callback = function()
+    protect_dashboard_buffer(vim.api.nvim_get_current_buf())
+  end,
+  group = general,
+  desc = "Protect alpha dashboard after render",
+})
+
+autocmd("InsertEnter", {
+  pattern = "*",
+  callback = function(args)
+    if not is_dashboard_buffer(args.buf) then
+      return
+    end
+
+    force_normal_mode()
+  end,
+  group = general,
+  desc = "Never stay in insert mode on dashboard",
+})
+
+autocmd("InsertCharPre", {
+  pattern = "*",
+  callback = function(args)
+    if not is_dashboard_buffer(args.buf) then
+      return
+    end
+
+    local char = vim.v.char
+    vim.v.char = ""
+
+    if char == " " then
+      vim.b[args.buf].pnhau_dashboard_leader_pending = true
+      vim.defer_fn(function()
+        if vim.api.nvim_buf_is_valid(args.buf) then
+          vim.b[args.buf].pnhau_dashboard_leader_pending = false
+        end
+      end, vim.o.timeoutlen + 100)
+      feed_normal_key("<Space>")
+      return
+    end
+
+    if vim.b[args.buf].pnhau_dashboard_leader_pending then
+      vim.b[args.buf].pnhau_dashboard_leader_pending = false
+      feed_normal_key(char)
+      return
+    end
+
+    force_normal_mode()
+  end,
+  group = general,
+  desc = "Prevent text insertion into dashboard buffers",
+})
+
+autocmd("FileType", {
+  pattern = { "opencode", "opencode_output" },
+  callback = function(args)
+    vim.defer_fn(function()
+      if not vim.api.nvim_buf_is_valid(args.buf) then
+        return
+      end
+
+      vim.keymap.set({ "n", "i" }, "<Esc>", function()
+        force_normal_mode()
+      end, {
+        buffer = args.buf,
+        desc = "Opencode | Leave Insert mode",
+        silent = true,
+      })
+    end, 50)
+  end,
+  group = general,
+  desc = "Harden Opencode escape handling",
+})
+
+autocmd("FileType", {
+  pattern = { "neo-tree" },
+  callback = function(args)
+    vim.keymap.set("i", "<Space>", function()
+      local keys = vim.api.nvim_replace_termcodes("<C-\\><C-n><Space>", true, false, true)
+      vim.api.nvim_feedkeys(keys, "n", false)
+    end, {
+      buffer = args.buf,
+      desc = "Dashboard | Escape insert before leader",
+      silent = true,
+    })
+  end,
+  group = general,
+  desc = "Escape insert before leader in explorer UI",
 })
 
 autocmd("BufReadPost", {

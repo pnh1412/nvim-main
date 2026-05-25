@@ -101,7 +101,7 @@ return {
     },
   },
   init = function()
-    vim.keymap.set("n", "<leader>ao", "<cmd>AerialToggle!<CR>", { desc = "Aerial | Toggle Outline", silent = true })
-    vim.keymap.set("n", "<leader>aO", "<cmd>AerialToggle! right<CR>", { desc = "Aerial | Toggle Outline Right", silent = true })
+    vim.keymap.set("n", "<leader>co", "<cmd>AerialToggle!<CR>", { desc = "Aerial | Toggle Outline", silent = true })
+    vim.keymap.set("n", "<leader>cO", "<cmd>AerialToggle! right<CR>", { desc = "Aerial | Toggle Outline Right", silent = true })
   end,
 }

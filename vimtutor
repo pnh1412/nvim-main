@@ -602,14 +602,10 @@ Supermaven inline:
 
 Opencode:
 - <leader>aa    Toggle opencode.
-- <leader>ai    Open input.
-- <leader>aI    Open input in new session.
-- <leader>ao    Open output.
 - <leader>at    Toggle focus.
 - <leader>aq    Close.
 - <leader>as    Select session.
 - <leader>ap    Configure provider.
-- <leader>ad    Open diff.
 - <leader>a]    Next diff.
 - <leader>a[    Previous diff.
 - <leader>ac    Close diff.
@@ -620,6 +616,15 @@ Opencode:
 - <leader>arr   Restore current file.
 - <leader>arR   Restore all files.
 - <leader>ax    Swap opencode window position.
+
+Ghi chu:
+- <leader>aa la phim chinh de mo/dong Opencode.
+- <leader>ai, <leader>aI, <leader>ao, <leader>ad da tat vi trong workflow hang ngay chung de gay cam giac trung voi <leader>aa.
+- Cac phim chinh trong nhom <leader>a duoc khai bao vao lazy.nvim keys, nen prefix AI co mapping that ngay ca truoc khi Opencode load xong.
+- Khi dong Opencode/Explorer, config se dua ve Normal mode de Space tiep tuc la leader thay vi chen dau cach.
+- Trong o input/output cua Opencode, Esc chi thoat Insert mode/giu Normal mode, khong dong Opencode.
+- Dong Opencode bang <leader>aq hoac toggle <leader>aa; config ep lai Normal mode sau callback focus cua plugin.
+- Dashboard/start screen khong giu Insert mode; neu focus bi ket insert mode, InsertCharPre se chan ky tu truoc khi no duoc ghi vao dashboard va replay phim do qua Normal mode.
 
 Permission prompts:
 - <leader>apa   Accept permission.
@@ -640,8 +645,8 @@ Markdown:
 - <leader>mp   Markdown Preview.
 
 Aerial/outline:
-- <leader>ao   Toggle Aerial outline.
-- <leader>aO   Toggle Aerial outline on right.
+- <leader>co   Toggle Aerial outline.
+- <leader>cO   Toggle Aerial outline on right.
 
 Notification:
 - <leader>nn   Notification history.
@@ -945,6 +950,7 @@ Quy uoc vua refactor:
 - ftplugin/markdown.lua, text.lua, log.lua, gitcommit.lua quan ly wrap/spell.
 - ftplugin/OverseerList.lua quan ly UI cua OverseerList.
 - Dashboard alpha-nvim load bang VimEnter, khong con nam trong nhom startup plugin.
+- Dashboard alpha-nvim cho phep autocmd chay de FileType/User guard khoa insert-mode leak sau khi dong AI/explorer.
 - tree-sitter-norg va tree-sitter-norg-meta chi load khi dung Neorg/.norg.
 - Catppuccin tat default_integrations va chi bat integration dang dung hang ngay de giam startup cost.
 - lazy.nvim tat pkg scan, rocks scan, local .lazy.lua spec va change detection de giam spec-evaluation cost.
